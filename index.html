@@ -908,6 +908,10 @@ body.dark .head{border-bottom:1px solid var(--line)!important}
 body.dark .event-select option{background:#2a2f38!important;color:#fff!important}
 body.dark .card-title{color:var(--text)!important}
 
+.user-bar{position:fixed;top:10px;right:14px;z-index:5000;display:none;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:12px;color:var(--muted);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.user-bar-email{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.user-bar-btn{background:none;border:none;cursor:pointer;color:#ef4444;display:flex;align-items:center;padding:0}
+.user-bar-btn svg{width:14px;height:14px}
 .help-fab{
   width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);
   display:flex;align-items:center;justify-content:center;cursor:pointer;
@@ -1113,6 +1117,8 @@ onAuthStateChanged(auth, async (user)=>{
     // Logado — carregar dados do Firebase
     document.getElementById("telaLogin").style.display="none";
     document.getElementById("appShell").style.display="";
+    const bar=document.getElementById("userBar");
+    if(bar){ bar.style.display="flex"; document.getElementById("userEmail").textContent=user.email; }
     const dadosFb = await fbLoad();
     if(dadosFb && dadosFb.length > 0){
       window._dbFromFb = dadosFb;
@@ -1122,11 +1128,19 @@ onAuthStateChanged(auth, async (user)=>{
     // Deslogado — mostrar tela de login
     document.getElementById("telaLogin").style.display="flex";
     document.getElementById("appShell").style.display="none";
+    const bar2=document.getElementById("userBar");
+    if(bar2) bar2.style.display="none";
   }
 });
 </script>
 </head>
 <body>
+<div id="userBar" class="user-bar">
+  <span class="user-bar-email" id="userEmail"></span>
+  <button class="user-bar-btn" onclick="sair()" title="Sair">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+  </button>
+</div>
 <!-- Tela de Login -->
 <div id="telaLogin" style="display:none;position:fixed;inset:0;z-index:99999;background:#f8fafc;align-items:center;justify-content:center;font-family:inherit">
   <div style="width:100%;max-width:400px;padding:24px;background:#fff;border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.1);border:1px solid #e2e8f0">
@@ -1218,9 +1232,6 @@ onAuthStateChanged(auth, async (user)=>{
       <svg class="moon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
       </svg>
-    </button>
-    <button class="help-fab" onclick="sair()" title="Sair da conta" style="color:#ef4444">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
     </button>
     <button class="help-fab" id="btnTour" onclick="iniciarTour()" title="Ver tour de boas-vindas">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 5.8 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg>
