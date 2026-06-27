@@ -1160,7 +1160,7 @@ onAuthStateChanged(auth, async (user)=>{
 </head>
 <body>
 <!-- Tela de Login -->
-<div id="telaLogin" style="display:none;position:fixed;inset:0;z-index:99999;background:#f8fafc;align-items:center;justify-content:center;font-family:inherit">
+<div id="telaLogin" style="display:none;position:fixed;inset:0;z-index:99999;background:#f8fafc;align-items:center;justify-content:center;font-family:inherit;color:#1e293b">
   <div style="width:100%;max-width:400px;padding:24px;background:#fff;border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.1);border:1px solid #e2e8f0">
     <div style="text-align:center;margin-bottom:24px">
       <div style="font-size:22px;font-weight:700;letter-spacing:-.5px"><span style="color:#1e293b">CUC</span><span style="font-style:italic;font-weight:300;color:#2563eb">flow</span></div>
@@ -1169,8 +1169,8 @@ onAuthStateChanged(auth, async (user)=>{
 
     <div id="loginForm">
       <div style="font-size:14px;font-weight:600;color:#1e293b;margin-bottom:16px;text-align:center">Entrar na sua conta</div>
-      <input id="loginEmail" type="email" placeholder="E-mail" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:10px;box-sizing:border-box;outline:none">
-      <input id="loginSenha" type="password" placeholder="Senha" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:6px;box-sizing:border-box;outline:none" onkeydown="if(event.key==='Enter')fazerLogin()">
+      <input id="loginEmail" type="email" placeholder="E-mail" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:10px;box-sizing:border-box;outline:none;background:#fff;color:#1e293b">
+      <input id="loginSenha" type="password" placeholder="Senha" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:6px;box-sizing:border-box;outline:none;background:#fff;color:#1e293b" onkeydown="if(event.key==='Enter')fazerLogin()">
       <div style="text-align:right;margin-bottom:16px"><button onclick="mostrarEsqueci()" style="background:none;border:none;font-size:12px;color:#2563eb;cursor:pointer">Esqueci minha senha</button></div>
       <button onclick="fazerLogin()" style="width:100%;padding:11px;background:#1e40af;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Entrar</button>
       <div id="loginErro" style="font-size:12px;color:#ef4444;text-align:center;margin-top:8px;display:none"></div>
@@ -1179,9 +1179,9 @@ onAuthStateChanged(auth, async (user)=>{
 
     <div id="cadastroForm" style="display:none">
       <div style="font-size:14px;font-weight:600;color:#1e293b;margin-bottom:16px;text-align:center">Criar conta</div>
-      <input id="cadEmail" type="email" placeholder="E-mail" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:10px;box-sizing:border-box;outline:none">
-      <input id="cadSenha" type="password" placeholder="Senha (mín. 6 caracteres)" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:10px;box-sizing:border-box;outline:none">
-      <input id="cadSenha2" type="password" placeholder="Confirmar senha" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:16px;box-sizing:border-box;outline:none" onkeydown="if(event.key==='Enter')fazerCadastro()">
+      <input id="cadEmail" type="email" placeholder="E-mail" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:10px;box-sizing:border-box;outline:none;background:#fff;color:#1e293b">
+      <input id="cadSenha" type="password" placeholder="Senha (mín. 6 caracteres)" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:10px;box-sizing:border-box;outline:none;background:#fff;color:#1e293b">
+      <input id="cadSenha2" type="password" placeholder="Confirmar senha" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:16px;box-sizing:border-box;outline:none;background:#fff;color:#1e293b" onkeydown="if(event.key==='Enter')fazerCadastro()">
       <button onclick="fazerCadastro()" style="width:100%;padding:11px;background:#1e40af;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Criar conta</button>
       <div id="cadErro" style="font-size:12px;color:#ef4444;text-align:center;margin-top:8px;display:none"></div>
       <div style="text-align:center;margin-top:16px;font-size:13px;color:#64748b">Já tem conta? <button onclick="mostrarLogin()" style="background:none;border:none;color:#2563eb;font-size:13px;cursor:pointer;font-weight:600">Entrar</button></div>
@@ -1190,7 +1190,7 @@ onAuthStateChanged(auth, async (user)=>{
     <div id="esqueciForm" style="display:none">
       <div style="font-size:14px;font-weight:600;color:#1e293b;margin-bottom:8px;text-align:center">Recuperar senha</div>
       <div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:16px">Vamos enviar um link de redefinição para o seu e-mail.</div>
-      <input id="esqueciEmail" type="email" placeholder="Seu e-mail" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:16px;box-sizing:border-box;outline:none" onkeydown="if(event.key==='Enter')enviarResetSenha()">
+      <input id="esqueciEmail" type="email" placeholder="Seu e-mail" style="width:100%;padding:10px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:14px;margin-bottom:16px;box-sizing:border-box;outline:none;background:#fff;color:#1e293b" onkeydown="if(event.key==='Enter')enviarResetSenha()">
       <button onclick="enviarResetSenha()" style="width:100%;padding:11px;background:#1e40af;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Enviar link</button>
       <div id="esqueciMsg" style="font-size:12px;text-align:center;margin-top:8px;display:none"></div>
       <div style="text-align:center;margin-top:16px"><button onclick="mostrarLogin()" style="background:none;border:none;color:#2563eb;font-size:13px;cursor:pointer">Voltar ao login</button></div>
