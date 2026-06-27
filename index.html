@@ -1128,8 +1128,7 @@ onAuthStateChanged(auth, async (user)=>{
     // Logado — carregar dados do Firebase
     document.getElementById("telaLogin").style.display="none";
     document.getElementById("appShell").style.display="";
-    const bar=document.getElementById("userBar2");
-    if(bar){ bar.style.display="flex"; document.getElementById("userEmail2").textContent=user.email; }
+
     const perfil=document.getElementById("sidebarPerfil");
     if(perfil){
       perfil.style.display="flex";
@@ -1151,8 +1150,7 @@ onAuthStateChanged(auth, async (user)=>{
     // Deslogado — mostrar tela de login
     document.getElementById("telaLogin").style.display="flex";
     document.getElementById("appShell").style.display="none";
-    const bar2=document.getElementById("userBar2");
-    if(bar2) bar2.style.display="none";
+
     const perfil2=document.getElementById("sidebarPerfil");
     if(perfil2) perfil2.style.display="none";
   }
@@ -1160,12 +1158,6 @@ onAuthStateChanged(auth, async (user)=>{
 </script>
 </head>
 <body>
-<div id="userBar" class="user-bar">
-  <span class="user-bar-email" id="userEmail"></span>
-  <button class="user-bar-btn" onclick="sair()" title="Sair">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-  </button>
-</div>
 <!-- Tela de Login -->
 <div id="telaLogin" style="display:none;position:fixed;inset:0;z-index:99999;background:#f8fafc;align-items:center;justify-content:center;font-family:inherit">
   <div style="width:100%;max-width:400px;padding:24px;background:#fff;border-radius:16px;box-shadow:0 24px 48px rgba(0,0,0,.1);border:1px solid #e2e8f0">
@@ -1299,7 +1291,7 @@ onAuthStateChanged(auth, async (user)=>{
 <section id="page-processos">
   <div class="top">
     <div><h1 id="tituloLista">Meus Processos</h1><div class="sub">Gerencie e acompanhe seus processos.</div></div>
-    <div style="display:flex;align-items:center;gap:10px"><div id="userBar2" style="display:none;align-items:center;gap:6px;font-size:12px;color:var(--muted)"><span id="userEmail2" style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span><button onclick="sair()" title="Sair" style="background:none;border:none;cursor:pointer;color:#ef4444;display:flex;align-items:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></button></div><button id="btnAdicionarProcessos" class="primary" onclick="openImport()">Adicionar Processos</button></div>
+    <div><button id="btnAdicionarProcessos" class="primary" onclick="openImport()">Adicionar Processos</button></div>
   </div>
   <div class="stats">
     <div class="stat stat-clicavel" id="cardTotal" onclick="toggleFiltroCard('total')"><b id="stTotal">0</b><span>Total</span></div>
