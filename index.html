@@ -2598,7 +2598,7 @@ function render(){
     <button class="copy-proc" data-numero="${esc(p.numero)}" title="Copiar processo" onclick="event.stopPropagation();copiarNumeroLista('${esc(p.numero)}',this)">
     <span class="copy-icon-face icon-copy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
     <span class="copy-icon-face icon-check">✓</span>
-    </button>${dupBadgeHtml(p, idx)}${p.reentradas?'<span class="retorno-icon" title="Retornou '+p.reentradas+'x para reanálise">'+p.reentradas>1?'↩ '+p.reentradas:'↩'+'</span>':''}</div></td>
+    </button>${dupBadgeHtml(p, idx)}${p.reentradas?'<span class="retorno-icon" title="Processo retornou para análise">'+p.reentradas>1?'↩ '+p.reentradas:'↩'+'</span>':''}</div></td>
     <td><select onchange="alterarStatusLista(${idx},this.value)" class="event-select ${statusClass(p.status)}">
     <option ${p.status==='Pendente'?'selected':''}>Pendente</option>
     <option ${p.status==='Em análise'?'selected':''}>Em análise</option>
@@ -4717,7 +4717,7 @@ function renderTabelaLote(items){
   const linhas=items.map((p,i)=>{
     const sc=statusClass(p.status);
     const idx=db.indexOf(p);
-    const retorno=p.reentradas?`<span class="retorno-icon" title="Retornou ${p.reentradas}x para reanálise">${p.reentradas>1?'↩ '+p.reentradas:'↩'}</span>`:'';
+    const retorno=p.reentradas?`<span class="retorno-icon" title="Processo retornou para análise">${p.reentradas>1?'↩ '+p.reentradas:'↩'}</span>`:'';
     const isPendente = !['Cálculo','Certidão','Sem pendência','Liberado'].includes(p.status);
     const dotPendente = isPendente ? `<span style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0;display:inline-block;margin-right:4px" title="Processo pendente"></span>` : '';
     const podeMudar = !finalizado(p);
