@@ -419,7 +419,7 @@ body.dark .btn-flat-ic.del:hover{color:#f87171;background:rgba(239,68,68,.12)}
 body.dark .card{background:var(--card)!important;border:1px solid var(--line)!important;box-shadow:none!important}
 .analysis-layout .card.card-focado{
   border-color:#2563eb;
-  box-shadow:0 0 0 3px rgba(37,99,235,.18), 0 16px 36px rgba(37,99,235,.16);
+  box-shadow:0 0 0 3px rgba(37,99,235,.3), 0 16px 36px rgba(37,99,235,.22);
 }
 body.dark .analysis-layout .card.card-focado{
   box-shadow:0 0 0 3px rgba(96,165,250,.22), 0 16px 36px rgba(0,0,0,.4);
@@ -703,43 +703,78 @@ body.dark .ev-dd-personalizar:hover{background:#2a2e37}
 #telaLogin input{background:#fff !important;color:#1e293b !important;border-color:#e2e8f0 !important;-webkit-text-fill-color:#1e293b !important}
 #telaLogin input::placeholder{color:#94a3b8 !important;-webkit-text-fill-color:#94a3b8 !important}
 #telaLogin label,#telaLogin div,#telaLogin span,#telaLogin p{color-scheme:light}
-.ev-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:9000;display:flex;align-items:center;justify-content:center}
-.ev-popup{background:var(--card);border:1px solid var(--line);border-radius:14px;width:460px;max-height:82vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 48px rgba(0,0,0,.18)}
-.ev-popup-hdr{padding:16px 18px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+/* ── Modal Personalizar Eventos ── */
+.ev-popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px)}
+.ev-popup{background:var(--card);border:1px solid var(--line);border-radius:16px;width:720px;max-width:95vw;max-height:85vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 32px 64px rgba(0,0,0,.22)}
+body.dark .ev-popup{background:#1a1d24;border-color:rgba(255,255,255,.08)}
+.ev-popup-hdr{padding:16px 20px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+body.dark .ev-popup-hdr{border-bottom-color:rgba(255,255,255,.07)}
 .ev-popup-title{font-size:14px;font-weight:600;color:var(--text)}
-.ev-popup-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1}
-.ev-popup-body{padding:16px 18px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:16px}
-.ev-popup-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#94a3b8;margin-bottom:6px}
-.ev-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)}
-.ev-row:last-child{border-bottom:none}
-.ev-row-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;min-width:80px;text-align:center}
-.ev-row-space{flex:1}
-.ev-cor-btn{width:18px;height:18px;border-radius:50%;cursor:pointer;flex-shrink:0;border:2px solid var(--line)}
-.ev-cor-btn:hover{transform:scale(1.15)}
-.ev-rem-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:17px;line-height:1;padding:0 2px}
-.ev-rem-btn:hover{color:#ef4444}
-.ev-add-row{display:flex;gap:8px}
-.ev-add-row input{flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:var(--card);color:var(--text);outline:none}
-.ev-add-row input:focus{border-color:#2563eb}
-.ev-add-row button{background:#1e40af;color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;font-weight:500;cursor:pointer}
-.ev-bib-wrap{display:flex;flex-wrap:wrap;gap:6px}
-.ev-bib-tag{font-size:11px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:3px 8px;cursor:pointer;color:var(--muted)}
-.ev-bib-tag:hover{color:var(--text);border-color:var(--muted)}
-.ev-popup-footer{padding:12px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end}
-.ev-popup-footer button{background:#1e40af;color:#fff;border:none;border-radius:8px;padding:8px 20px;font-size:13px;font-weight:500;cursor:pointer}
-.ev-popup-aviso{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin:0 18px 0;display:flex;align-items:center;gap:6px}
+.ev-popup-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s}
+.ev-popup-close:hover{background:rgba(0,0,0,.06);color:var(--text)}
+body.dark .ev-popup-close:hover{background:rgba(255,255,255,.08)}
+.ev-popup-aviso{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 12px;margin:12px 20px 0;display:flex;align-items:center;gap:6px;flex-shrink:0}
+body.dark .ev-popup-aviso{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.06)}
 .ev-popup-aviso svg{flex-shrink:0;opacity:.6}
-body.dark .ev-popup button,.ev-popup-footer button{border:1px solid transparent}
-body.dark .ev-popup .ev-add-row button{background:#fff;color:#1e293b;border:none}
-body.dark .ev-popup-footer button{background:#fff;color:#1e293b;border:none}
-body.dark .ev-bib-tag{background:#1e2535;border-color:#2d3748;color:#94a3b8}
-body.dark .ev-bib-tag:hover{color:#e2e8f0;border-color:#475569}
-.ev-restaurar-btn{background:none;border:none;font-size:11px;color:#94a3b8;cursor:pointer;text-decoration:underline;margin-right:auto}
-.ev-restaurar-btn:hover{color:var(--text)}
-.ev-cor-picker{position:fixed;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;display:none;flex-wrap:wrap;gap:5px;width:138px;z-index:9100;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+
+/* Layout horizontal: esquerda + direita */
+.ev-popup-body{padding:16px 20px;overflow:hidden;flex:1;display:grid;grid-template-columns:1fr 1fr;gap:16px;min-height:0}
+.ev-col{display:flex;flex-direction:column;min-height:0}
+.ev-popup-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:8px;flex-shrink:0}
+
+/* Lista eventos ativos */
+.ev-lista-scroll{overflow-y:auto;flex:1;margin-bottom:10px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ev-lista-scroll::-webkit-scrollbar{width:4px}
+.ev-lista-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.ev-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)}
+body.dark .ev-row{border-bottom-color:rgba(255,255,255,.05)}
+.ev-row:last-child{border-bottom:none}
+.ev-row-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;min-width:70px;text-align:center}
+.ev-row-space{flex:1}
+.ev-cor-btn{width:16px;height:16px;border-radius:50%;cursor:pointer;flex-shrink:0;border:2px solid rgba(0,0,0,.15);transition:transform .15s,box-shadow .15s}
+.ev-cor-btn:hover{transform:scale(1.2);box-shadow:0 0 0 3px rgba(0,0,0,.1)}
+body.dark .ev-cor-btn:hover{box-shadow:0 0 0 3px rgba(255,255,255,.12)}
+.ev-rem-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;line-height:1;padding:0 2px;opacity:.4;transition:opacity .15s,color .15s}
+.ev-rem-btn:hover{color:#ef4444;opacity:1}
+
+/* Input + botão adicionar */
+.ev-add-row{display:flex;gap:6px;flex-shrink:0}
+.ev-add-row input{flex:1;padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:12px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s}
+.ev-add-row input:focus{border-color:#3b82f6}
+body.dark .ev-add-row input{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:#f1f5f9}
+body.dark .ev-add-row input:focus{border-color:#3b82f6}
+.ev-add-row button{background:rgba(37,99,235,.1);color:#2563eb;border:1px solid rgba(37,99,235,.2);border-radius:8px;padding:7px 13px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s,border-color .15s}
+.ev-add-row button:hover{background:rgba(37,99,235,.18);border-color:rgba(37,99,235,.35)}
+body.dark .ev-add-row button{background:rgba(96,165,250,.08);color:#60a5fa;border-color:rgba(96,165,250,.18)}
+body.dark .ev-add-row button:hover{background:rgba(96,165,250,.15);border-color:rgba(96,165,250,.3)}
+
+/* Biblioteca */
+.ev-bib-col{display:flex;flex-direction:column;min-height:0;border-left:1px solid var(--line);padding-left:16px}
+body.dark .ev-bib-col{border-left-color:rgba(255,255,255,.07)}
+.ev-bib-wrap{display:flex;flex-wrap:wrap;gap:5px;overflow-y:auto;flex:1;scrollbar-width:thin;scrollbar-color:var(--line) transparent;align-content:flex-start}
+.ev-bib-wrap::-webkit-scrollbar{width:4px}
+.ev-bib-wrap::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.ev-bib-tag{font-size:11px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--muted);transition:color .15s,border-color .15s}
+.ev-bib-tag:hover{color:var(--text);border-color:var(--muted)}
+body.dark .ev-bib-tag{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08);color:#64748b}
+body.dark .ev-bib-tag:hover{color:#e2e8f0;border-color:rgba(255,255,255,.2)}
+
+/* Footer */
+.ev-popup-footer{padding:12px 20px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+body.dark .ev-popup-footer{border-top-color:rgba(255,255,255,.07)}
+.ev-restaurar-btn{background:none;border:none;font-size:11px;color:#94a3b8;cursor:pointer;padding:0;transition:color .15s}
+.ev-restaurar-btn:hover{color:#f87171}
+.ev-salvar-btn{background:#1e293b;color:#f1f5f9;border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 22px;font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,box-shadow .15s}
+.ev-salvar-btn:hover{background:#0f172a;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+body.dark .ev-salvar-btn{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.12);color:#f1f5f9}
+body.dark .ev-salvar-btn:hover{background:rgba(255,255,255,.12);box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+
+/* Picker de cores */
+.ev-cor-picker{position:fixed;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px;display:none;flex-wrap:wrap;gap:5px;width:138px;z-index:9100;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+body.dark .ev-cor-picker{background:#1e2535;border-color:rgba(255,255,255,.1)}
 .ev-cor-picker.open{display:flex}
-.ev-cor-op{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent}
-.ev-cor-op:hover{transform:scale(1.2)}
+.ev-cor-op{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .12s,box-shadow .12s}
+.ev-cor-op:hover{transform:scale(1.2);box-shadow:0 0 0 2px rgba(0,0,0,.15)}
 body.dark .ev-dd-opt.ev-dd-ativo{background:#1e293b}
 body.dark .ev-dd-trigger{background:rgba(255,255,255,.06);color:#94a3b8;border:1px solid rgba(255,255,255,.08)}
 .ev-dd-pill{border-radius:6px;padding:3px 10px;font-size:11.5px;font-weight:700}
@@ -784,13 +819,16 @@ body.dark .aviso-tinta-titulo,body.dark .aviso-tinta-sub{color:#fcd34d}
 .badge-ag-proc svg{color:#2563eb;flex-shrink:0}
 body.dark .badge-ag-proc{background:rgba(37,99,235,.12);border-color:rgba(96,165,250,.3);color:#93c5fd}
 body.dark .badge-ag-proc svg{color:#60a5fa}
-.banner-reentrada{display:none;align-items:center;gap:10px;background:#fef9c3;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px}
-.banner-reentrada svg{flex-shrink:0;color:#d97706}
+.banner-reentrada{display:none;align-items:center;gap:12px;background:#fef9c3;border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:12px 16px;margin-bottom:14px}
+.banner-reentrada-icon{width:30px;height:30px;border-radius:7px;background:rgba(245,158,11,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.banner-reentrada svg{flex-shrink:0;color:#d97706;width:15px;height:15px}
 .banner-reentrada-txt{font-size:13px;color:#92400e;font-weight:500}
 .banner-reentrada-sub{font-size:11px;color:#a16207;margin-top:2px}
-body.dark .banner-reentrada{background:rgba(245,158,11,.1);border-left-color:#f59e0b}
-body.dark .banner-reentrada-txt{color:#fcd34d}
-body.dark .banner-reentrada-sub{color:#fbbf24}
+body.dark .banner-reentrada{background:#1e2230;border-left-color:#f59e0b}
+body.dark .banner-reentrada-icon{background:rgba(245,158,11,.1)}
+body.dark .banner-reentrada svg{color:#f59e0b}
+body.dark .banner-reentrada-txt{color:#f1f5f9}
+body.dark .banner-reentrada-sub{color:#64748b}
 .banner-ag-ajuda{display:none;align-items:center;gap:10px;background:#eff6ff;border-left:4px solid #2563eb;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px}
 .banner-ag-ajuda svg{flex-shrink:0;color:#2563eb}
 .banner-ag-ajuda-texto{font-size:13px;color:#1e40af;font-weight:500}
@@ -799,13 +837,6 @@ body.dark .badge-ag-proc{display:none;align-items:center;gap:4px;background:#eff
 .badge-ag-proc svg{color:#2563eb;flex-shrink:0}
 body.dark .badge-ag-proc{background:rgba(37,99,235,.12);border-color:rgba(96,165,250,.3);color:#93c5fd}
 body.dark .badge-ag-proc svg{color:#60a5fa}
-.banner-reentrada{display:none;align-items:center;gap:10px;background:#fef9c3;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px}
-.banner-reentrada svg{flex-shrink:0;color:#d97706}
-.banner-reentrada-txt{font-size:13px;color:#92400e;font-weight:500}
-.banner-reentrada-sub{font-size:11px;color:#a16207;margin-top:2px}
-body.dark .banner-reentrada{background:rgba(245,158,11,.1);border-left-color:#f59e0b}
-body.dark .banner-reentrada-txt{color:#fcd34d}
-body.dark .banner-reentrada-sub{color:#fbbf24}
 .banner-ag-ajuda{background:rgba(37,99,235,.1);border-left-color:#60a5fa}
 body.dark .banner-ag-ajuda-texto{color:#93c5fd}
 body.dark .banner-ag-ajuda-sub{color:#60a5fa}
@@ -820,7 +851,7 @@ body.dark #analysisLayout .card[data-ativo]{
 }
 #analysisLayout .card[data-ativo]{
   border-color:#2563eb;
-  box-shadow:0 8px 24px rgba(37,99,235,.18);
+  box-shadow:0 0 0 2px rgba(37,99,235,.35), 0 8px 28px rgba(37,99,235,.28);
 }
 body.dark{
   --glow-border:rgba(255,255,255,.7);
@@ -1416,7 +1447,9 @@ onAuthStateChanged(auth, async (user)=>{
     </div>
     <div id="seloConcluido" class="selo-carimbo" style="display:none"></div>
     <div class="banner-reentrada" id="bannerReentrada">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
+      <div class="banner-reentrada-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
+      </div>
       <div>
         <div class="banner-reentrada-txt">Processo retornou para análise</div>
         <div class="banner-reentrada-sub" id="bannerReentradaSub"></div>
@@ -5478,6 +5511,11 @@ function evAddNovo(){
 }
 
 function evAbrirCor(idx, btn){
+  if(evCorPickerIdx===idx && document.getElementById("evCorPicker").classList.contains("open")){
+    document.getElementById("evCorPicker").classList.remove("open");
+    evCorPickerIdx=null;
+    return;
+  }
   evCorPickerIdx = idx;
   const picker = document.getElementById("evCorPicker");
   picker.innerHTML = EV_CORES_PADRAO.map((c,i)=>
@@ -5557,22 +5595,22 @@ document.addEventListener("mousedown", e=>{
       Remover um evento o move para a biblioteca — você pode restaurá-lo quando quiser.
     </div>
     <div class="ev-popup-body">
-      <div>
+      <div class="ev-col">
         <div class="ev-popup-sec">Eventos ativos</div>
-        <div id="evListaAtivos"></div>
-        <div class="ev-add-row" style="margin-top:10px">
+        <div class="ev-lista-scroll"><div id="evListaAtivos"></div></div>
+        <div class="ev-add-row">
           <input id="evInputNovo" placeholder="Nome do novo evento..." onkeydown="if(event.key==='Enter')evAddNovo()">
           <button onclick="evAddNovo()">Adicionar</button>
         </div>
       </div>
-      <div>
+      <div class="ev-col ev-bib-col">
         <div class="ev-popup-sec">Biblioteca padrão</div>
         <div class="ev-bib-wrap" id="evBibWrap"></div>
       </div>
     </div>
     <div class="ev-popup-footer">
       <button class="ev-restaurar-btn" onclick="evRestaurarPadroes()">Restaurar eventos originais</button>
-      <button onclick="fecharPersonalizarEventos()">Salvar</button>
+      <button class="ev-salvar-btn" onclick="fecharPersonalizarEventos()">Salvar</button>
     </div>
   </div>
 </div>
