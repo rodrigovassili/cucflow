@@ -752,6 +752,9 @@ body.dark .ev-popup-aviso{background:rgba(255,255,255,.03);border-color:rgba(255
 .ev-popup-sec{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;margin-bottom:8px;flex-shrink:0}
 
 /* Lista eventos ativos */
+.ev-fixados-wrap{flex-shrink:0;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.ev-fixados-titulo{font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#2563eb;margin-bottom:2px}
+body.dark .ev-fixados-titulo{color:#60a5fa}
 .ev-lista-scroll{overflow-y:auto;flex:1;margin-bottom:10px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .ev-lista-scroll::-webkit-scrollbar{width:4px}
 .ev-lista-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
@@ -5548,15 +5551,19 @@ function renderEvPopup(destaque){
   const ativos = evAtivos();
   const cores = carregarCoresEventos();
   const lista = document.getElementById("evListaAtivos");
+  const listaFixados = document.getElementById("evListaFixados");
+  const wrapFixados = document.getElementById("evListaFixadosWrap");
   const fixados = carregarFixados();
-  lista.innerHTML = ativos.map((ev,i)=>{
+  let hFixados = '';
+  let hResto = '';
+  ativos.forEach((ev,i)=>{
     const cor = cores[ev];
     const cls = cor ? '' : classeEvento(ev);
     const style = cor ? `style="background:${cor.bg};color:${cor.tx};border:1px solid ${cor.tx}40"` : '';
     const corBtnStyle = cor ? `background:${cor.bg};border-color:${cor.tx}` : corBtnPadraoStyle(cls);
     const flash = (destaque && ev===destaque) ? ' ev-flash' : '';
     const fixado = fixados.includes(ev);
-    return `<div class="ev-row" data-nome="${esc(ev)}">
+    const linha = `<div class="ev-row" data-nome="${esc(ev)}">
       <span class="ev-row-pill ${cls}${flash}" ${style}>${cls==='ev-marco'?iconeEventoMarco(ev):''}${ev}</span>
       <span class="ev-row-space"></span>
       <div class="ev-cor-btn" style="${corBtnStyle}" onclick="evAbrirCor(${i},this)" title="Mudar cor"></div>
@@ -5565,10 +5572,20 @@ function renderEvPopup(destaque){
       </button>
       <button class="ev-rem-btn" onclick="evRemover(${i})" title="Remover">×</button>
     </div>`;
-  }).join('');
+    if(fixado) hFixados+=linha; else hResto+=linha;
+  });
+
+  if(fixados.length){
+    wrapFixados.style.display='block';
+    listaFixados.innerHTML=hFixados;
+  } else {
+    wrapFixados.style.display='none';
+    listaFixados.innerHTML='';
+  }
+  lista.innerHTML = hResto;
 
   if(destaque){
-    const linhas=[...lista.querySelectorAll('.ev-row')];
+    const linhas=[...document.querySelectorAll('#evListaFixados .ev-row, #evListaAtivos .ev-row')];
     const alvo=linhas.find(r=>r.dataset.nome===destaque);
     if(alvo) alvo.scrollIntoView({behavior:"smooth", block:"nearest"});
   }
@@ -5709,6 +5726,10 @@ document.addEventListener("mousedown", e=>{
       <div class="ev-col">
         <div class="ev-popup-sec">Eventos ativos</div>
         <div id="evPinAviso" class="ev-pin-aviso">Limite de 5 eventos fixados atingido.</div>
+        <div id="evListaFixadosWrap" class="ev-fixados-wrap" style="display:none">
+          <div class="ev-fixados-titulo">Fixados</div>
+          <div id="evListaFixados"></div>
+        </div>
         <div class="ev-lista-scroll"><div id="evListaAtivos"></div></div>
         <div class="ev-add-row">
           <input id="evInputNovo" placeholder="Nome do novo evento..." onkeydown="if(event.key==='Enter')evAddNovo()">
