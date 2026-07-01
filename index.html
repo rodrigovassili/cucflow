@@ -4397,6 +4397,10 @@ function toggleTheme(){
     if(document.body.classList.contains("dark")) av.classList.remove("sidebar-avatar-light");
     else av.classList.add("sidebar-avatar-light");
   }
+  // Redesenha os gráficos da aba Estatísticas com as cores do tema novo —
+  // sem isso, o Chart.js mantém a cor de grid antiga (clara) até a próxima
+  // troca de aba, o que aparece como linhas brancas por cima do fundo escuro.
+  if(typeof renderGraficos==="function" && (chartBarrasInst||chartPizzaInst)) renderGraficos();
 }
 if(localStorage.getItem("prod_theme")==="dark") document.body.classList.add("dark");
 
