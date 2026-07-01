@@ -8,6 +8,15 @@
 :root{
   --bg:#e8edf4;--card:#ffffff;--text:#172033;--muted:#667085;
   --line:#d1dae8;--shadow:0 2px 8px rgba(15,23,42,.1);
+  --ev-verde:#bbf7d0;--ev-verde-tx:#166534;
+  --ev-roxo:#ddd6fe;--ev-roxo-tx:#5b21b6;
+  --ev-vermelho:#fee2e2;--ev-vermelho-tx:#991b1b;
+  --ev-amarelo:#fef9c3;--ev-amarelo-tx:#854d0e;
+  --ev-escuro:#1e293b;--ev-escuro-tx:#f8fafc;
+  --ev-azul:#bfdbfe;--ev-azul-tx:#1e3a8a;
+  --ev-rosa:#fce7f3;--ev-rosa-tx:#9d174d;
+  --ev-laranja:#fed7aa;--ev-laranja-tx:#9a3412;
+  --ev-cinza:#f1f5f9;--ev-cinza-tx:#334155;
 }
 *{box-sizing:border-box}
 @keyframes fadeInUp{
@@ -19,6 +28,15 @@ body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);c
 body.dark{
   --bg:#17191f;--card:#23262d;--text:#f3f4f6;
   --muted:#aeb6c5;--line:#343843;--shadow:0 8px 20px rgba(0,0,0,.25);
+  --ev-verde:rgba(16,185,129,.15);--ev-verde-tx:#34d399;
+  --ev-roxo:rgba(139,92,246,.15);--ev-roxo-tx:#a78bfa;
+  --ev-vermelho:rgba(244,63,94,.15);--ev-vermelho-tx:#fb7185;
+  --ev-amarelo:rgba(234,179,8,.15);--ev-amarelo-tx:#fbbf24;
+  --ev-escuro:rgba(255,255,255,.1);--ev-escuro-tx:#f1f5f9;
+  --ev-azul:rgba(59,130,246,.15);--ev-azul-tx:#60a5fa;
+  --ev-rosa:rgba(236,72,153,.15);--ev-rosa-tx:#f9a8d4;
+  --ev-laranja:rgba(251,146,60,.15);--ev-laranja-tx:#fb923c;
+  --ev-cinza:rgba(255,255,255,.06);--ev-cinza-tx:#94a3b8;
 }
 
 /* Layout */
@@ -210,13 +228,6 @@ body.dark .cal-dia-numero.cal-dia-hoje{outline-color:#60a5fa}
 }
 .toggle-switch.ativo .toggle-bolinha{transform:translateX(18px)}
 
-#cardModoVintage.revelando{animation:revelarConfig .6s ease-out}
-@keyframes revelarConfig{
-  0%{opacity:0;transform:translateY(8px);box-shadow:0 0 0 3px rgba(37,99,235,.25)}
-  60%{box-shadow:0 0 0 3px rgba(37,99,235,.25)}
-  100%{opacity:1;transform:translateY(0);box-shadow:var(--shadow)}
-}
-
 /* ── Modo Escritório Vintage — easter egg ── */
 body.vintage-mode{
   background:#f4efe2 !important;
@@ -241,7 +252,6 @@ body.vintage-mode th{background:#ece4d3 !important;color:#57534e !important}
    pra parecer um carimbo de máquina de escrever (cantos quase retos, borda
    tracejada) em vez da pílula arredondada do visual moderno. */
 body.vintage-mode .badge,
-body.vintage-mode .selo-status,
 body.vintage-mode .proc-hist,
 body.vintage-mode select.event-select{
   border-radius:2px !important;
@@ -486,7 +496,6 @@ body.dark .import-compact label{color:#b0b8c5}
    filtro isolado na extrema direita. */
 .hist-controls{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:20px;flex-wrap:wrap;gap:10px}
 .hist-edit-btn{opacity:0;background:none;border:none;cursor:pointer;color:var(--muted);padding:4px;border-radius:5px;transition:opacity .15s,color .15s;display:inline-flex;align-items:center;justify-content:center}
-.hist-conn-wrap{position:relative}
 .hist-dot{position:absolute;width:10px;height:10px;border-radius:50%;border:2px solid var(--card);z-index:3;pointer-events:none}
 .hist-line{position:absolute;width:2px;z-index:2;pointer-events:none;opacity:.7}
 .hist-edit-btn svg{width:15px;height:15px}
@@ -577,10 +586,12 @@ body.dark .copy-proc:hover{color:#60a5fa}
 }
 body.dark .dados-linhas label{color:#b0b8c5}
 .dados-linhas input{
-  margin:0;border:0!important;background:transparent!important;padding:0!important;
+  margin:0;border:0!important;border-radius:0!important;background:transparent!important;padding:0!important;
   font-size:15px;font-weight:600;color:var(--text);box-shadow:none!important;
+  -webkit-appearance:none;appearance:none;width:100%;box-sizing:border-box;
+  outline:0!important;
 }
-.dados-linhas input:focus{outline:0}
+body.dark .dados-linhas input{background:transparent!important}
 
 /* Movimentações */
 .mov{border-collapse:collapse!important;width:100%;table-layout:fixed}
@@ -652,11 +663,10 @@ body.dark .mov .anot-cell .rich-editor{color:#cbd5e1!important}
   display:inline-block!important;vertical-align:middle!important;
 }
 .event-select option{background:#fff!important;color:#111827!important}
-.outro-evento-box{display:none;margin-top:6px}
-.outro-evento-box input{font-size:12px!important;padding:6px 8px!important;border-radius:8px!important;font-weight:600!important}
 
 /* Cores dos eventos */
 .ev-sentenca{background:#bbf7d0!important;color:#166534!important}
+.ev-marco{background:#bbf7d0!important;color:#166534!important;border-left:4px solid #15803d!important;border-radius:0 6px 6px 0!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:5px!important}
 .ev-cumprimento{background:#ddd6fe!important;color:#5b21b6!important}
 .ev-impugnacao{background:#fee2e2!important;color:#991b1b!important}
 .ev-embargos{background:#fee2e2!important;color:#991b1b!important}
@@ -669,6 +679,7 @@ body.dark .mov .anot-cell .rich-editor{color:#cbd5e1!important}
 .ev-outro{background:#e5e7eb!important;color:#111827!important}
 .ev-default{background:#f1f5f9!important;color:#334155!important}
 body.dark .ev-sentenca,body.dark .ev-homologacao{background:rgba(16,185,129,.1)!important;color:#34d399!important;border:1px solid rgba(16,185,129,.2)!important}
+body.dark .ev-marco{background:rgba(16,185,129,.1)!important;color:#34d399!important;border-top:1px solid rgba(16,185,129,.2)!important;border-right:1px solid rgba(16,185,129,.2)!important;border-bottom:1px solid rgba(16,185,129,.2)!important;border-left:4px solid #10b981!important}
 body.dark .ev-cumprimento{background:rgba(139,92,246,.1)!important;color:#a78bfa!important;border:1px solid rgba(139,92,246,.2)!important}
 body.dark .ev-impugnacao,body.dark .ev-embargos{background:rgba(244,63,94,.1)!important;color:#fb7185!important;border:1px solid rgba(244,63,94,.2)!important}
 body.dark .ev-certidao{background:rgba(234,179,8,.1)!important;color:#fbbf24!important;border:1px solid rgba(234,179,8,.2)!important}
@@ -688,6 +699,7 @@ body.dark .ev-outro,body.dark .ev-default{background:rgba(255,255,255,.05)!impor
   transition:opacity .15s;
 }
 .ev-dd-trigger:hover{opacity:.85}
+.ev-dd-trigger.ev-marco{border-radius:0 6px 6px 0!important}
 .ev-dd-arrow{font-size:8px;opacity:.45;flex-shrink:0;transition:transform .15s}
 .ev-dd-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ev-dd-list{
@@ -710,9 +722,11 @@ body.dark .ev-dd-opt:hover{background:#2a2e37!important}
 body.dark .date-group button:hover{background:rgba(255,255,255,.06)!important}
 body.dark .anot-tab.anot-tab-ativa{background:rgba(255,255,255,.06)!important}
 .ev-dd-opt.ev-dd-ativo{background:#f0f7ff}
-.ev-dd-personalizar{padding:6px 10px;cursor:pointer;font-size:11px;color:#94a3b8;display:flex;align-items:center;gap:6px;border-top:1px solid var(--line);margin-top:2px}
-.ev-dd-personalizar:hover{color:var(--text);background:#f8fafc}
-body.dark .ev-dd-personalizar:hover{background:#2a2e37}
+.ev-dd-topo{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 6px 2px 12px}
+.ev-dd-topo .ev-dd-sec{padding:6px 0}
+.ev-dd-config-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:5px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:color .15s,background .15s}
+.ev-dd-config-btn:hover{color:var(--text);background:#f8fafc}
+body.dark .ev-dd-config-btn:hover{background:#2a2e37}
 #telaLogin{background:#f8fafc !important;color-scheme:light !important}
 #telaLogin>div{background:#fff !important;color:#1e293b !important}
 #telaLogin input{background:#fff !important;color:#1e293b !important;border-color:#e2e8f0 !important;-webkit-text-fill-color:#1e293b !important}
@@ -744,13 +758,33 @@ body.dark .ev-popup-aviso{background:rgba(255,255,255,.03);border-color:rgba(255
 .ev-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--line)}
 body.dark .ev-row{border-bottom-color:rgba(255,255,255,.05)}
 .ev-row:last-child{border-bottom:none}
-.ev-row-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;min-width:70px;text-align:center}
+.ev-row-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;min-width:70px;text-align:center;transition:all .3s ease}
 .ev-row-space{flex:1}
 .ev-cor-btn{width:16px;height:16px;border-radius:50%;cursor:pointer;flex-shrink:0;border:2px solid rgba(0,0,0,.15);transition:transform .15s,box-shadow .15s}
 .ev-cor-btn:hover{transform:scale(1.2);box-shadow:0 0 0 3px rgba(0,0,0,.1)}
 body.dark .ev-cor-btn:hover{box-shadow:0 0 0 3px rgba(255,255,255,.12)}
+@keyframes evFlashPulso{
+  0%{box-shadow:0 0 0 0 rgba(37,99,235,.55);transform:scale(1)}
+  35%{box-shadow:0 0 0 6px rgba(37,99,235,.28);transform:scale(1.07)}
+  100%{box-shadow:0 0 0 0 rgba(37,99,235,0);transform:scale(1)}
+}
+@keyframes evFlashPulsoEscuro{
+  0%{box-shadow:0 0 0 0 rgba(96,165,250,.6);transform:scale(1)}
+  35%{box-shadow:0 0 0 6px rgba(96,165,250,.32);transform:scale(1.07)}
+  100%{box-shadow:0 0 0 0 rgba(96,165,250,0);transform:scale(1)}
+}
+.ev-row-pill.ev-flash{animation:evFlashPulso .7s ease-out}
+body.dark .ev-row-pill.ev-flash{animation-name:evFlashPulsoEscuro}
 .ev-rem-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;line-height:1;padding:0 2px;opacity:.4;transition:opacity .15s,color .15s}
 .ev-rem-btn:hover{color:#ef4444;opacity:1}
+.ev-pin-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:3px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.55;transition:opacity .15s,color .15s,background .15s}
+.ev-pin-btn:hover{opacity:1;color:#2563eb;background:rgba(37,99,235,.08)}
+body.dark .ev-pin-btn:hover{color:#60a5fa;background:rgba(96,165,250,.12)}
+.ev-pin-btn.ev-pin-ativo{color:#2563eb;opacity:1}
+body.dark .ev-pin-btn.ev-pin-ativo{color:#60a5fa}
+.ev-pin-aviso{font-size:11px;font-weight:600;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:6px;padding:5px 10px;margin-bottom:8px;opacity:0;transition:opacity .3s ease;flex-shrink:0}
+.ev-pin-aviso.visivel{opacity:1}
+body.dark .ev-pin-aviso{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3);color:#fbbf24}
 
 /* Input + botão adicionar */
 .ev-add-row{display:flex;gap:6px;flex-shrink:0}
@@ -808,7 +842,7 @@ body.dark .ev-dd-txt{color:#d7dce5}
 .pill-ajuda.active{background:#dbeafe;border:1.5px solid #2563eb;color:#1d4ed8}
 #motivoLiberadoBox,#duvidaBox{margin-top:14px}
 .duvida-box{display:none;margin-top:12px}
-#btnReabrir,#btnEditar{display:none}
+#btnEditar{display:none}
 .selo-carimbo{display:none;position:absolute;inset:0;z-index:5;pointer-events:none}
 .selo-individual{position:absolute;transform:translate(-50%,-50%)}
 .analysis-layout{position:relative}
@@ -848,10 +882,6 @@ body.dark .banner-reentrada-sub{color:#64748b}
 .banner-ag-ajuda svg{flex-shrink:0;color:#2563eb}
 .banner-ag-ajuda-texto{font-size:13px;color:#1e40af;font-weight:500}
 .banner-ag-ajuda-sub{font-size:11px;color:#3b82f6;margin-top:2px}
-body.dark .badge-ag-proc{display:none;align-items:center;gap:4px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:600;color:#1d4ed8;white-space:nowrap}
-.badge-ag-proc svg{color:#2563eb;flex-shrink:0}
-body.dark .badge-ag-proc{background:rgba(37,99,235,.12);border-color:rgba(96,165,250,.3);color:#93c5fd}
-body.dark .badge-ag-proc svg{color:#60a5fa}
 .banner-ag-ajuda{background:rgba(37,99,235,.1);border-left-color:#60a5fa}
 body.dark .banner-ag-ajuda-texto{color:#93c5fd}
 body.dark .banner-ag-ajuda-sub{color:#60a5fa}
@@ -1126,7 +1156,6 @@ body.dark .tour-card{border-color:rgba(255,255,255,.08)}
 body.dark .tour-step-label{color:#94a3b8}
 .tour-title{font-size:16px;font-weight:700;margin-bottom:8px}
 .tour-text{font-size:13.5px;line-height:1.5;color:var(--muted);margin-bottom:14px}
-.tour-location{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#1d4ed8;background:rgba(37,99,235,.1);border-radius:999px;padding:3px 10px;margin-bottom:10px}
 .tour-footer{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .tour-footer-col{flex-direction:column;align-items:center;justify-content:center;gap:10px}
 .tour-footer button.primary{font-size:13px;padding:8px 14px}
@@ -2926,19 +2955,6 @@ function importar(){
 
   save(); render();
 
-  const statusBadge = (status) => {
-    const cores = {
-      'Pendente':'background:#fee2e2;color:#b91c1c',
-      'Em análise':'background:#fdba74;color:#9a3412',
-      'Aguardando ajuda':'background:#dbeafe;color:#1d4ed8',
-      'Cálculo':'background:#dcfce7;color:#166534',
-      'Certidão':'background:#fef9c3;color:#92400e',
-      'Liberado':'background:#ede9fe;color:#5b21b6',
-      'Sem pendência':'background:#e2e8f0;color:#475569',
-    };
-    return `<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;white-space:nowrap;${cores[status]||'background:#f1f5f9;color:#334155'}">${status}</span>`;
-  };
-
   const feedbackEl = document.getElementById('importFeedback');
   const listaWrap = document.getElementById('listaWrap');
   if(feedbackEl && listaWrap && nums.length > 0){
@@ -3149,16 +3165,30 @@ function eventoDropdownHtml(valor){
   const cls=valor?classeEvento(valor):'';
   return `<div class="ev-dd" id="${id}" data-val="${esc(valor)}">
     <button type="button" class="ev-dd-trigger ${cls}" onclick="evDDToggle('${id}')">
-      <span class="ev-dd-label">${esc(valor)||'Evento'}</span>
+      ${valor&&iconeEventoMarco(valor)?'<span class="ev-dd-icon">'+iconeEventoMarco(valor)+'</span>':''}<span class="ev-dd-label">${esc(valor)||'Evento'}</span>
       <span class="ev-dd-arrow">▾</span>
     </button>
     <div class="ev-dd-list" id="${id}_list"></div>
-    <div class="outro-evento-box" style="display:none;margin-top:6px">
-      <input placeholder="Novo evento" onkeydown="confirmarEventoCustom(event,this)" onblur="salvarEventoCustomInput(this)" style="font-size:12px!important;padding:6px 8px!important;border-radius:8px!important;font-weight:600!important">
-    </div>
   </div>`;
 }
+/* Atualiza o trigger do dropdown de eventos (texto, cor e ícone de destaque)
+   sempre que o evento selecionado muda — usada nos dois pontos do código
+   que trocam o valor após a renderização inicial. */
+function atualizarTriggerEvento(dd, valor){
+  const trigger=dd.querySelector('.ev-dd-trigger');
+  const iconeAntigo=trigger.querySelector('.ev-dd-icon');
+  if(iconeAntigo) iconeAntigo.remove();
+  const iconeHtml=valor?iconeEventoMarco(valor):'';
+  if(iconeHtml) trigger.querySelector('.ev-dd-label').insertAdjacentHTML('beforebegin', `<span class="ev-dd-icon">${iconeHtml}</span>`);
+  trigger.querySelector('.ev-dd-label').textContent=valor||'Evento';
+  trigger.className='ev-dd-trigger'+(valor?' '+classeEvento(valor):'');
+}
 function getTopEventos(n){
+  const fixados = carregarFixados();
+  if(fixados.length){
+    const validos = todosEventos();
+    return fixados.filter(e=>validos.includes(e));
+  }
   const freq={};
   db.forEach(p=>{(p.movs||[]).forEach(m=>{const e=(m.evento||"").trim();if(e&&e!=="Outro...")freq[e]=(freq[e]||0)+1;});});
   return Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,n||3).map(([k])=>k);
@@ -3189,12 +3219,18 @@ function evDDPopulate(id){
   const list=document.getElementById(id+'_list');
   const valorAtual=dd.dataset.val||'';
   const top3=getTopEventos(3);
+  const tituloTop=carregarFixados().length ? 'Fixados' : 'Mais usados';
   const todos=todosEventos().filter(e=>e!=='');
   let h='';
+  h+=`<div class="ev-dd-topo">
+    <span class="ev-dd-sec">${top3.length?tituloTop:''}</span>
+    <button type="button" class="ev-dd-config-btn" onclick="event.stopPropagation();abrirPersonalizarEventos()" title="Personalizar eventos">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>`;
   if(top3.length){
-    h+=`<div class="ev-dd-sec">Mais usados</div>`;
     top3.forEach(e=>{
-      h+=`<div class="ev-dd-opt" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-pill ${classeEvento(e)}">${esc(e)}</span></div>`;
+      h+=`<div class="ev-dd-opt" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-pill ${classeEvento(e)}">${iconeEventoMarco(e)}${esc(e)}</span></div>`;
     });
     h+=`<div class="ev-dd-divider"></div><div class="ev-dd-sec">Todos</div>`;
   }
@@ -3203,26 +3239,14 @@ function evDDPopulate(id){
     const ativo=e===valorAtual?' ev-dd-ativo':'';
     h+=`<div class="ev-dd-opt${ativo}" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-txt">${esc(e)}</span></div>`;
   });
-  h+=`<div class="ev-dd-personalizar" onclick="abrirPersonalizarEventos()">
-    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-    Personalizar eventos
-  </div>`;
   list.innerHTML=h;
 }
 function evDDPick(id,valor){
   const dd=document.getElementById(id);
   if(!dd) return;
   dd.dataset.val=valor;
-  dd.querySelector('.ev-dd-label').textContent=valor||'Evento';
-  dd.querySelector('.ev-dd-trigger').className='ev-dd-trigger'+(valor?' '+classeEvento(valor):'');
+  atualizarTriggerEvento(dd, valor);
   document.getElementById(id+'_list').classList.remove('open');
-  const outroBox=dd.querySelector('.outro-evento-box');
-  if(valor==='Outro...'){
-    outroBox.style.display='block';
-    setTimeout(()=>outroBox.querySelector('input').focus(),0);
-  } else {
-    if(outroBox) outroBox.style.display='none';
-  }
   houveEdicaoReal=true;
   autoSaveAtual();
 }
@@ -3234,7 +3258,7 @@ document.addEventListener('click',e=>{
 
 function eventosPadrao(){
   return ["Acórdão","Cálculo do executado","Cálculo do exequente","Certidão","Contadoria - Cálculo","Contadoria - Certidão","Cumpr. de sentença",
-    "Dec. de Embargos","Dec. Monocrática","Decisão","Despacho","Emb. de Declaração","Executado","Exequente","Homologação","Impugnação","Meu Cálculo","Minha Certidão","Outro...","RPV",
+    "Dec. de Embargos","Dec. Monocrática","Decisão","Despacho","Emb. de Declaração","Executado","Exequente","Homologação","Impugnação","Meu Cálculo","Minha Certidão","RPV",
     "Sentença","Trânsito em julgado","Última decisão"];
 }
 function eventosPersonalizados(){
@@ -3242,6 +3266,7 @@ function eventosPersonalizados(){
 }
 function salvarEventoPersonalizado(nome){
   nome=(nome||"").trim(); if(!nome) return "";
+  nome=nome.charAt(0).toUpperCase()+nome.slice(1);
   const norm=nome.toLowerCase();
   let lista=eventosPersonalizados();
   if(!lista.some(x=>x.toLowerCase()===norm)){
@@ -3253,10 +3278,10 @@ function salvarEventoPersonalizado(nome){
 }
 function todosEventos(){
   const ordemSalva = carregarOrdemEventos ? carregarOrdemEventos() : null;
-  if(ordemSalva) return ["", ...ordemSalva, "Outro..."];
+  if(ordemSalva) return ["", ...ordemSalva];
   const padrao=eventosPadrao();
   const custom=eventosPersonalizados().filter(x=>!padrao.some(p=>p.toLowerCase()===x.toLowerCase()));
-  return ["",...padrao.filter(x=>x!=="Outro..."),...custom,"Outro..."];
+  return ["",...padrao,...custom];
 }
 function retornoIconHtml(n){
   return '<span class="retorno-icon" title="Processo retornou para análise">↩'+(n>1?' '+n:'')+'</span>';
@@ -3266,8 +3291,8 @@ function classeEvento(v){
   if(v.includes("cumprimento")||v.includes("cumpr.")) return "ev-cumprimento";
   if(v.includes("dec. de embarg")||v.includes("dec.de embarg")) return "ev-sentenca";
   if(v.includes("dec. monocr")||v.includes("monocr")) return "ev-sentenca";
-  if(v.includes("sentença")||v.includes("sentenca")) return "ev-sentenca";
-  if(v.includes("acórdão")||v.includes("acordao")) return "ev-sentenca";
+  if(v.includes("sentença")||v.includes("sentenca")) return "ev-marco";
+  if(v.includes("acórdão")||v.includes("acordao")) return "ev-marco";
   if(v.includes("decisão")||v.includes("decisao")) return "ev-sentenca";
   if(v.includes("despacho")) return "ev-sentenca";
   if(v.includes("última")||v.includes("ultima")) return "ev-sentenca";
@@ -3285,6 +3310,38 @@ function classeEvento(v){
   return "ev-default";
 }
 function aplicarClasseEvento(sel){sel.className="event-select "+classeEvento(sel.value)}
+
+/* Mapeia a classe de cor de cada evento (classeEvento) para a variável CSS
+   correspondente — usado para pintar o círculo seletor de cor com a MESMA
+   cor que a pílula do evento já exibe, quando ele ainda não tem cor
+   customizada escolhida manualmente. */
+const EV_CLASSE_VAR={
+  "ev-sentenca":"verde","ev-marco":"verde","ev-homologacao":"verde",
+  "ev-cumprimento":"roxo",
+  "ev-impugnacao":"vermelho","ev-embargos":"vermelho",
+  "ev-certidao":"amarelo",
+  "ev-transito":"escuro",
+  "ev-calculo":"azul",
+  "ev-exeq":"rosa",
+  "ev-rpv":"laranja",
+  "ev-outro":"cinza","ev-default":"cinza"
+};
+function corBtnPadraoStyle(cls){
+  const nome=EV_CLASSE_VAR[cls]||"cinza";
+  return `background:var(--ev-${nome});border-color:var(--ev-${nome}-tx)`;
+}
+
+/* Ícones exclusivos para os marcos processuais de maior peso (Sentença e
+   Acórdão) — os demais eventos "tipo decisão" (despacho, decisão
+   monocrática, última decisão etc.) continuam sem ícone, só com a cor
+   verde padrão (classe ev-sentenca). */
+const ICONE_EV_SENTENCA='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="m14.5 12.5-8 8a2.119 2.119 0 1 1-3-3l8-8"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/><path d="m21 11-8-8"/></svg>';
+const ICONE_EV_ACORDAO='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="7" r="2.4"/><circle cx="5" cy="9.5" r="2"/><circle cx="19" cy="9.5" r="2"/><path d="M12 12c-3 0-5 1.8-5 4v2h10v-2c0-2.2-2-4-5-4z"/><path d="M5 13.5c-1.8 0-3 1.2-3 3v1.5h3.5"/><path d="M19 13.5c1.8 0 3 1.2 3 3v1.5h-3.5"/></svg>';
+function iconeEventoMarco(v){
+  if(classeEvento(v)!=="ev-marco") return "";
+  const l=(v||"").toLowerCase();
+  return (l.includes("acórdão")||l.includes("acordao")) ? ICONE_EV_ACORDAO : ICONE_EV_SENTENCA;
+}
 
 /* Busca por digitação no <select> de Evento ignorando acentos —
    o comportamento nativo do navegador exige acento exato, então
@@ -3365,32 +3422,6 @@ document.addEventListener("keydown", function(e){
 
 function eventoMudou(sel){
   aplicarClasseEvento(sel);
-  const box=sel.parentElement.querySelector(".outro-evento-box");
-  if(box){
-    box.style.display = sel.value==="Outro..." ? "block" : "none";
-    if(sel.value==="Outro...") setTimeout(()=>box.querySelector("input").focus(),0);
-  }
-}
-function confirmarEventoCustom(event,input){
-  if(event.key==="Enter"){event.preventDefault(); salvarEventoCustomInput(input);}
-}
-function salvarEventoCustomInput(input){
-  const val=(input.value||"").trim();
-  if(val){
-    const ativos = carregarOrdemEventos ? (carregarOrdemEventos() || todosEventos().filter(e=>e&&e!=="Outro...")) : null;
-    if(ativos && !ativos.includes(val)){ ativos.push(val); if(typeof salvarOrdemEventos==="function") salvarOrdemEventos(ativos); }
-  }
-  const nome=salvarEventoPersonalizado(input.value); if(!nome) return;
-  const dd=input.closest(".ev-dd");
-  if(dd){
-    dd.dataset.val=nome;
-    dd.querySelector('.ev-dd-label').textContent=nome;
-    dd.querySelector('.ev-dd-trigger').className='ev-dd-trigger '+classeEvento(nome);
-    input.value=""; input.parentElement.style.display="none";
-  }
-  houveEdicaoReal=true;
-  clearTimeout(autoSaveTimer);
-  salvarAnaliseSilencioso();
 }
 
 function inserirMov(i){
@@ -3821,17 +3852,6 @@ function salvarAnaliseSilencioso(){
   save(); updateCounts();
   if(editandoConcluido) atualizarNotaSalvamento("salvo");
 }
-function reabrirAtual(){
-  if(atual===null) return;
-  if(!confirm("Reabrir este processo? Ele voltará para Em análise. O lançamento e o carimbo anteriores permanecem registrados para sempre; ao concluir novamente, um novo carimbo será aplicado, somando-se ao(s) anterior(es).")) return;
-  let p=db[atual];
-  // garante que os carimbos já existentes fiquem no formato de lista antes
-  // de zerar o status atual — NUNCA apaga carimbos já aplicados, eles
-  // continuam visíveis no card como marcas permanentes do papel.
-  if(!Array.isArray(p.carimbos)) p.carimbos = carimbosDoProcesso(p);
-  p.status="Em análise"; p.concluidoData=""; p.concluidoHora=""; p.concluidoPor=""; p.agAjudaData=""; p.agAjudaHora="";
-  save(); openAnalise(atual); render();
-}
 
 /* Gera um SVG de "carimbo" diferente por status, com posição/rotação e falhas
    de tinta levemente aleatórias (baseadas numa seed fixa por processo, para
@@ -4144,7 +4164,7 @@ function renderMovLeitura(movs){
   leitura.innerHTML = movs.filter(m=>m.n||m.evento||!mAnotVazia(m.anotacao)).map(m=>`
     <div class="linha-mov">
       <b>${esc(m.n)}</b>
-      <span class="ev-badge ${classeEvento(m.evento)}">${esc(m.evento)||"Evento"}</span>
+      <span class="ev-badge ${classeEvento(m.evento)}">${iconeEventoMarco(m.evento)}${esc(m.evento)||"Evento"}</span>
       <span class="anot">${fmtParaExibicao(m.anotacao)}</span>
     </div>
   `).join("") || `<div class="small">Nenhuma movimentação registrada.</div>`;
@@ -4190,7 +4210,6 @@ function renderHistorico(){
   hist.innerHTML=`<div class="tablebox"><table><thead class="thead-centro"><tr><th style="width:20px"></th><th>#</th><th>Horário</th><th>Processo</th><th>Status</th><th>Assunto</th><th></th></tr></thead><tbody>${
     eventos.map((ev,i)=>{
       const divergente = ev.status !== ev.statusAtual;
-      const dotColor = {"Cálculo":"#10b981","Certidão":"#f59e0b","Liberado":"#8b5cf6","Sem pendência":"#64748b"}[ev.status]||"#3b82f6";
       return `<tr ondblclick="openAnalise(${ev.idx})" data-numero="${esc(ev.numero)}" data-status="${esc(ev.status)}"><td style="width:20px;position:relative;padding:0"></td><td>${i+1}</td><td>${ev.hora||""}</td><td class="proc"><div class="proc-wrap"><span class="proc-hist proc-hist-${statusClass(ev.status)}">${esc(ev.numero)}</span>
 <button class="copy-proc" data-numero="${esc(ev.numero)}" title="Copiar processo" onclick="event.stopPropagation();copiarNumeroLista('${esc(ev.numero)}',this)">
 <span class="copy-icon-face icon-copy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
@@ -4832,7 +4851,6 @@ function renderTabelaLote(items){
     const idx=db.indexOf(p);
     const retorno=p.reentradas?retornoIconHtml(p.reentradas):'';
     const isPendente = !['Cálculo','Certidão','Sem pendência','Liberado'].includes(p.status);
-    const dotPendente = isPendente ? `<span style="width:6px;height:6px;border-radius:50%;background:#ef4444;flex-shrink:0;display:inline-block;margin-right:4px" title="Processo pendente"></span>` : '';
     const podeMudar = !finalizado(p);
     const statusCell = podeMudar
       ? `<select onchange="alterarStatusLista(${idx},this.value);renderLotes()" class="event-select ${sc}" onclick="event.stopPropagation()">
@@ -5463,6 +5481,8 @@ window.addEventListener("resize",()=>{ if(!tourOV().classList.contains("show")) 
 // ── Personalizar Eventos ──────────────────────────────────────────
 const EV_CORES_KEY = "prod_v5_eventos_cores";
 const EV_ORDEM_KEY = "prod_v5_eventos_ordem";
+const EV_FIXADOS_KEY = "prod_v5_eventos_fixados";
+const EV_FIXADOS_LIMITE = 5;
 const EV_CORES_PADRAO = [
   {bg:"#dcfce7",tx:"#166534"},{bg:"#dbeafe",tx:"#1e40af"},{bg:"#ede9fe",tx:"#5b21b6"},
   {bg:"#fef9c3",tx:"#854d0e"},{bg:"#fee2e2",tx:"#991b1b"},{bg:"#fce7f3",tx:"#9d174d"},
@@ -5470,11 +5490,40 @@ const EV_CORES_PADRAO = [
   {bg:"#e0f2fe",tx:"#075985"},{bg:"#f0fdf4",tx:"#14532d"},{bg:"#fdf4ff",tx:"#6b21a8"},
 ];
 let evCorPickerIdx = null;
+let evPinAvisoTimer = null;
 
 function carregarCoresEventos(){ try{return JSON.parse(localStorage.getItem(EV_CORES_KEY)||"{}")}catch(e){return {}} }
 function salvarCoresEventos(obj){ localStorage.setItem(EV_CORES_KEY, JSON.stringify(obj)); }
 function carregarOrdemEventos(){ try{return JSON.parse(localStorage.getItem(EV_ORDEM_KEY)||"null")}catch(e){return null} }
 function salvarOrdemEventos(arr){ localStorage.setItem(EV_ORDEM_KEY, JSON.stringify(arr)); }
+function carregarFixados(){ try{return JSON.parse(localStorage.getItem(EV_FIXADOS_KEY)||"[]")}catch(e){return []} }
+function salvarFixados(arr){ localStorage.setItem(EV_FIXADOS_KEY, JSON.stringify(arr)); }
+
+/* Alterna a fixação manual de um evento nos "mais usados" do dropdown
+   principal — limitado a EV_FIXADOS_LIMITE itens. Se o usuário tiver ao
+   menos 1 fixado manualmente, esses substituem por completo o cálculo
+   automático por frequência (ver getTopEventos). */
+function evTogglePin(nome){
+  let fixados = carregarFixados();
+  if(fixados.includes(nome)){
+    fixados = fixados.filter(x=>x!==nome);
+  } else {
+    if(fixados.length>=EV_FIXADOS_LIMITE){
+      evMostrarAvisoLimitePin();
+      return;
+    }
+    fixados.push(nome);
+  }
+  salvarFixados(fixados);
+  renderEvPopup();
+}
+function evMostrarAvisoLimitePin(){
+  const aviso=document.getElementById("evPinAviso");
+  if(!aviso) return;
+  aviso.classList.add("visivel");
+  clearTimeout(evPinAvisoTimer);
+  evPinAvisoTimer=setTimeout(()=>aviso.classList.remove("visivel"), 2400);
+}
 
 function evAtivos(){
   const ordemSalva = carregarOrdemEventos();
@@ -5495,22 +5544,34 @@ function fecharPersonalizarEventos(e){
   }
 }
 
-function renderEvPopup(){
+function renderEvPopup(destaque){
   const ativos = evAtivos();
   const cores = carregarCoresEventos();
   const lista = document.getElementById("evListaAtivos");
+  const fixados = carregarFixados();
   lista.innerHTML = ativos.map((ev,i)=>{
     const cor = cores[ev];
     const cls = cor ? '' : classeEvento(ev);
     const style = cor ? `style="background:${cor.bg};color:${cor.tx};border:1px solid ${cor.tx}40"` : '';
-    const corBtnStyle = cor ? `background:${cor.bg};border-color:${cor.tx}` : 'background:var(--line);border-color:var(--muted)';
-    return `<div class="ev-row">
-      <span class="ev-row-pill ${cls}" ${style}>${ev}</span>
+    const corBtnStyle = cor ? `background:${cor.bg};border-color:${cor.tx}` : corBtnPadraoStyle(cls);
+    const flash = (destaque && ev===destaque) ? ' ev-flash' : '';
+    const fixado = fixados.includes(ev);
+    return `<div class="ev-row" data-nome="${esc(ev)}">
+      <span class="ev-row-pill ${cls}${flash}" ${style}>${cls==='ev-marco'?iconeEventoMarco(ev):''}${ev}</span>
       <span class="ev-row-space"></span>
       <div class="ev-cor-btn" style="${corBtnStyle}" onclick="evAbrirCor(${i},this)" title="Mudar cor"></div>
+      <button type="button" class="ev-pin-btn${fixado?' ev-pin-ativo':''}" onclick="evTogglePin('${esc(ev)}')" title="Fixar nos mais usados">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="${fixado?'currentColor':'none'}" fill-opacity="${fixado?'0.15':'1'}" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>
+      </button>
       <button class="ev-rem-btn" onclick="evRemover(${i})" title="Remover">×</button>
     </div>`;
   }).join('');
+
+  if(destaque){
+    const linhas=[...lista.querySelectorAll('.ev-row')];
+    const alvo=linhas.find(r=>r.dataset.nome===destaque);
+    if(alvo) alvo.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
 
   const bib = document.getElementById("evBibWrap");
   const padrao = eventosPadrao().filter(e=>e!=="Outro...");
@@ -5527,8 +5588,13 @@ function renderEvPopup(){
 
 function evRemover(i){
   const ativos = evAtivos();
+  const nome = ativos[i];
   ativos.splice(i,1);
   salvarOrdemEventos(ativos);
+  if(nome){
+    const fixados = carregarFixados().filter(x=>x!==nome);
+    salvarFixados(fixados);
+  }
   renderEvPopup();
 }
 
@@ -5540,14 +5606,15 @@ function evRestaurar(nome){
 
 function evAddNovo(){
   const inp = document.getElementById("evInputNovo");
-  const nome = (inp.value||"").trim();
+  let nome = (inp.value||"").trim();
   if(!nome) return;
-  salvarEventoPersonalizado(nome); // salva na biblioteca
+  nome = salvarEventoPersonalizado(nome); // salva na biblioteca e devolve o nome canônico (1ª letra maiúscula)
   const ativos = carregarOrdemEventos() || todosEventos().filter(e=>e&&e!=="Outro...");
   if(!ativos.includes(nome)) ativos.push(nome);
   salvarOrdemEventos(ativos);
   inp.value="";
-  renderEvPopup();
+  renderEvPopup(nome);
+  inp.focus();
 }
 
 function evAbrirCor(idx, btn){
@@ -5570,6 +5637,7 @@ function evAbrirCor(idx, btn){
 function evRestaurarPadroes(){
   localStorage.removeItem(EV_ORDEM_KEY);
   localStorage.removeItem(EV_CORES_KEY);
+  localStorage.removeItem(EV_FIXADOS_KEY);
   renderEvPopup();
 }
 
@@ -5587,6 +5655,9 @@ function evApagarBib(nome){
   const cores = carregarCoresEventos();
   delete cores[nome];
   salvarCoresEventos(cores);
+  // Remove dos fixados
+  const fixados = carregarFixados().filter(x=>x!==nome);
+  salvarFixados(fixados);
   renderEvPopup();
 }
 
@@ -5605,7 +5676,7 @@ function evEscolherCor(i){
 document.addEventListener("click", e=>{
   if(!e.target.classList.contains("ev-cor-btn")&&!e.target.classList.contains("ev-cor-op"))
     document.getElementById("evCorPicker").classList.remove("open");
-});
+}, true);
 
 
 // Ativar card da análise ao clicar em qualquer lugar
@@ -5637,6 +5708,7 @@ document.addEventListener("mousedown", e=>{
     <div class="ev-popup-body">
       <div class="ev-col">
         <div class="ev-popup-sec">Eventos ativos</div>
+        <div id="evPinAviso" class="ev-pin-aviso">Limite de 5 eventos fixados atingido.</div>
         <div class="ev-lista-scroll"><div id="evListaAtivos"></div></div>
         <div class="ev-add-row">
           <input id="evInputNovo" placeholder="Nome do novo evento..." onkeydown="if(event.key==='Enter')evAddNovo()">
