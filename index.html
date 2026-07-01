@@ -198,6 +198,10 @@ body.dark .lote-tab.ativa{
   background:#ede9fe;color:#5b21b6;cursor:pointer;
 }
 .cal-dia-numero.cal-dia-ferias:hover{background:#ddd6fe}
+.cal-dia-numero.cal-dia-recesso{
+  background:#e0e7ff;color:#3730a3;cursor:pointer;
+}
+.cal-dia-numero.cal-dia-recesso:hover{background:#c7d2fe}
 .cal-dia-numero.cal-dia-feriado-nacional{
   background:#fee2e2;color:#991b1b;cursor:default;
 }
@@ -211,6 +215,9 @@ body.dark .lote-tab.ativa{
 .cal-dia-numero.cal-dia-hoje{
   outline:2px solid #2563eb;outline-offset:1px;font-weight:800;
 }
+.cal-dia-numero.cal-dia-ancora{
+  outline:2px solid #8b5cf6;outline-offset:1px;
+}
 body.dark .cal-dia-numero.cal-dia-util{background:rgba(37,99,235,.15);color:#93c5fd}
 body.dark .cal-dia-numero.cal-dia-util:hover{background:rgba(37,99,235,.25)}
 body.dark .cal-dia-numero.cal-dia-folga{background:rgba(245,158,11,.15);color:#fbbf24}
@@ -221,6 +228,8 @@ body.dark .cal-dia-numero.cal-dia-feriado-manual{background:rgba(8,145,178,.2);c
 body.dark .cal-dia-numero.cal-dia-feriado-manual:hover{background:rgba(8,145,178,.3)}
 body.dark .cal-dia-numero.cal-dia-ferias{background:rgba(139,92,246,.18);color:#c4b5fd}
 body.dark .cal-dia-numero.cal-dia-ferias:hover{background:rgba(139,92,246,.28)}
+body.dark .cal-dia-numero.cal-dia-recesso{background:rgba(79,70,229,.22);color:#a5b4fc}
+body.dark .cal-dia-numero.cal-dia-recesso:hover{background:rgba(79,70,229,.32)}
 body.dark .cal-dia-numero.cal-dia-feriado-nacional{background:rgba(239,68,68,.12);color:#fca5a5}
 body.dark .cal-dia-numero.cal-dia-hoje{outline-color:#60a5fa}
 
@@ -233,6 +242,7 @@ body.dark .cal-dia-numero.cal-dia-hoje{outline-color:#60a5fa}
 .cal-legenda-dot.cal-dia-atestado{background:#ec4899}
 .cal-legenda-dot.cal-dia-feriado-manual{background:#0891b2}
 .cal-legenda-dot.cal-dia-ferias{background:#8b5cf6}
+.cal-legenda-dot.cal-dia-recesso{background:#4f46e5}
 .cal-legenda-dot.cal-dia-hoje{background:transparent;border:2px solid #2563eb;border-radius:3px}
 .cal-legenda-dot.cal-dia-feriado-nacional{background:#ef4444}
 .cal-legenda-dot.cal-dia-fimsemana{background:#cbd5e1}
@@ -249,10 +259,20 @@ body.dark .cal-dia-numero.cal-dia-hoje{outline-color:#60a5fa}
 .cal-legenda-clicavel[data-tipo="feriado"].ativo{color:#0e7490;background:rgba(8,145,178,.1);border-color:#0891b2}
 .cal-legenda-clicavel[data-tipo="ferias"].ativo{color:#7c3aed;background:rgba(139,92,246,.1);border-color:#8b5cf6}
 .cal-legenda-clicavel[data-tipo="folga"].ativo{color:#b45309;background:rgba(245,158,11,.1);border-color:#f59e0b}
+.cal-legenda-clicavel[data-tipo="recesso"].ativo{color:#4338ca;background:rgba(79,70,229,.1);border-color:#4f46e5}
 body.dark .cal-legenda-clicavel[data-tipo="atestado"].ativo{color:#f9a8d4}
 body.dark .cal-legenda-clicavel[data-tipo="feriado"].ativo{color:#67e8f9}
 body.dark .cal-legenda-clicavel[data-tipo="ferias"].ativo{color:#c4b5fd}
 body.dark .cal-legenda-clicavel[data-tipo="folga"].ativo{color:#fbbf24}
+body.dark .cal-legenda-clicavel[data-tipo="recesso"].ativo{color:#a5b4fc}
+
+/* Marcar período (dois cliques ou datas digitadas) */
+.cal-periodo-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:10px 0;font-size:11.5px;color:var(--muted);font-weight:600}
+.cal-periodo-box{display:none;align-items:end;gap:8px;flex-wrap:wrap;background:var(--bg);border-radius:10px;padding:10px;margin-bottom:10px}
+.cal-periodo-box.aberta{display:flex}
+.cal-periodo-box label{display:block;font-size:9.5px;font-weight:700;color:var(--muted);text-transform:uppercase;margin-bottom:3px}
+.cal-periodo-box input[type="date"]{border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-size:12.5px;background:var(--card);color:var(--text);width:auto}
+.cal-periodo-hint{font-size:11px;color:var(--muted);margin-bottom:8px;min-height:14px}
 
 /* ── Toggle switch genérico (usado no Modo Vintage) ── */
 .toggle-switch{
@@ -1769,15 +1789,36 @@ onAuthStateChanged(auth, async (user)=>{
         <button onclick="fecharModalCalendario()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center">×</button>
       </div>
       <div class="small" style="margin-bottom:12px">Selecione o motivo abaixo e clique nos dias para marcar. Fins de semana e feriados nacionais já ficam de fora automaticamente.</div>
-      <div id="calDiasUteisGrid" class="cal-dias-uteis-grid"></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px;font-size:11px;color:var(--muted)">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;font-size:11px;color:var(--muted)">
         <span class="cal-legenda-item"><span class="cal-legenda-dot cal-dia-util"></span> útil</span>
         <button type="button" class="cal-legenda-clicavel" data-tipo="atestado" onclick="selecionarModoMarcacao('atestado')"><span class="cal-legenda-dot cal-dia-atestado"></span> atestado</button>
         <button type="button" class="cal-legenda-clicavel" data-tipo="feriado" onclick="selecionarModoMarcacao('feriado')"><span class="cal-legenda-dot cal-dia-feriado-manual"></span> feriado</button>
         <button type="button" class="cal-legenda-clicavel" data-tipo="ferias" onclick="selecionarModoMarcacao('ferias')"><span class="cal-legenda-dot cal-dia-ferias"></span> férias</button>
         <button type="button" class="cal-legenda-clicavel ativo" data-tipo="folga" onclick="selecionarModoMarcacao('folga')"><span class="cal-legenda-dot cal-dia-folga"></span> folga</button>
+        <button type="button" class="cal-legenda-clicavel" id="calLegendaRecesso" data-tipo="recesso" onclick="selecionarModoMarcacao('recesso')"><span class="cal-legenda-dot cal-dia-recesso"></span> recesso</button>
         <span class="cal-legenda-item"><span class="cal-legenda-dot cal-dia-hoje"></span> hoje</span>
       </div>
+
+      <div class="cal-periodo-toggle-row">
+        <span id="calPeriodoHintTopo">Clique num dia pra marcar sozinho, ou ligue abaixo pra marcar um período inteiro de uma vez.</span>
+        <button type="button" class="toggle-switch" id="calPeriodoToggleBtn" onclick="alternarModoPeriodo()" title="Marcar por período">
+          <span class="toggle-bolinha"></span>
+        </button>
+      </div>
+      <div class="cal-periodo-box" id="calPeriodoBox">
+        <div>
+          <label>De</label>
+          <input type="date" id="calPeriodoDe">
+        </div>
+        <div>
+          <label>Até</label>
+          <input type="date" id="calPeriodoAte">
+        </div>
+        <button type="button" class="secondary" onclick="marcarPeriodoDigitado()" style="padding:6px 14px;font-size:12px">Marcar período</button>
+      </div>
+      <div class="cal-periodo-hint" id="calPeriodoHint"></div>
+
+      <div id="calDiasUteisGrid" class="cal-dias-uteis-grid"></div>
     </div>
   </div>
 
@@ -4735,17 +4776,102 @@ function ehExcecaoManual(data){
 // clicar num dia. Começa em "folga" (o mais comum / equivalente ao clique
 // simples de antes).
 let modoMarcacaoAtivo = "folga";
+const ROTULO_TIPO_EXCECAO = {atestado:"Atestado", feriado:"Feriado", ferias:"Férias", folga:"Folga", recesso:"Recesso"};
+const CLASSE_TIPO_EXCECAO = {atestado:"cal-dia-atestado", feriado:"cal-dia-feriado-manual", ferias:"cal-dia-ferias", folga:"cal-dia-folga", recesso:"cal-dia-recesso"};
 function selecionarModoMarcacao(tipo){
   modoMarcacaoAtivo = tipo;
   document.querySelectorAll(".cal-legenda-clicavel").forEach(b=>{
     b.classList.toggle("ativo", b.dataset.tipo===tipo);
   });
 }
-function toggleExcecaoDia(chave){
+
+// ── Marcar por período (dois cliques no calendário ou datas digitadas) ──
+let modoPeriodoAtivo = false;
+let anchoraPeriodo = null; // chave (YYYY-MM-DD) do primeiro dia clicado, quando em modo período
+function alternarModoPeriodo(){
+  modoPeriodoAtivo = !modoPeriodoAtivo;
+  anchoraPeriodo = null;
+  const btn = document.getElementById("calPeriodoToggleBtn");
+  if(btn) btn.classList.toggle("ativo", modoPeriodoAtivo);
+  const box = document.getElementById("calPeriodoBox");
+  if(box) box.classList.toggle("aberta", modoPeriodoAtivo);
+  atualizarHintPeriodo();
+  renderCalendarioDiasUteis();
+}
+function atualizarHintPeriodo(){
+  const hintTopo = document.getElementById("calPeriodoHintTopo");
+  if(hintTopo) hintTopo.textContent = modoPeriodoAtivo
+    ? "Clique no primeiro e no último dia do período no calendário, ou digite as datas abaixo."
+    : "Clique num dia pra marcar sozinho, ou ligue abaixo pra marcar um período inteiro de uma vez.";
+  const hint = document.getElementById("calPeriodoHint");
+  if(hint) hint.textContent = anchoraPeriodo ? ("Início selecionado: "+br(anchoraPeriodo)+" — clique no último dia do período (ou clique nele de novo pra cancelar).") : "";
+}
+// Marca todos os dias entre duas chaves (inclusive), em qualquer ordem, com
+// o tipo informado. Marca TODOS os dias do intervalo (inclusive fins de
+// semana) — isso não afeta a contagem de dias úteis (fim de semana já é
+// excluído antes de olhar pra exceção), mas mantém o período "inteiro" nos
+// relatórios, sem quebrar em pedacinhos ao redor de cada fim de semana.
+function marcarIntervalo(chaveA, chaveB, tipo){
+  const dataA = new Date(chaveA+"T00:00:00");
+  const dataB = new Date(chaveB+"T00:00:00");
+  const inicio = dataA <= dataB ? dataA : dataB;
+  const fim = dataA <= dataB ? dataB : dataA;
   const excecoes = carregarExcecoesDias();
+  let cursor = new Date(inicio);
+  let count = 0;
+  while(cursor <= fim){
+    excecoes[dataParaChave(cursor)] = tipo;
+    cursor.setDate(cursor.getDate()+1);
+    count++;
+  }
+  salvarExcecoesDias(excecoes);
+  return count;
+}
+function marcarPeriodoDigitado(){
+  const de = document.getElementById("calPeriodoDe").value;
+  const ate = document.getElementById("calPeriodoAte").value;
+  if(!de || !ate){ alert("Preencha as duas datas."); return; }
   const modo = modoMarcacaoAtivo || "folga";
+  const qtd = marcarIntervalo(de, ate, modo);
+  document.getElementById("calPeriodoDe").value = "";
+  document.getElementById("calPeriodoAte").value = "";
+  const hint = document.getElementById("calPeriodoHint");
+  if(hint) hint.textContent = qtd+" dia"+(qtd!==1?"s":"")+" marcado"+(qtd!==1?"s":"")+" como "+ROTULO_TIPO_EXCECAO[modo]+".";
+  renderCalendarioDiasUteis();
+  atualizarEstatisticas();
+  renderGraficos();
+}
+
+function toggleExcecaoDia(chave){
+  const modo = modoMarcacaoAtivo || "folga";
+
+  if(modoPeriodoAtivo){
+    if(!anchoraPeriodo){
+      anchoraPeriodo = chave;
+      atualizarHintPeriodo();
+      renderCalendarioDiasUteis();
+      return;
+    }
+    if(anchoraPeriodo === chave){
+      // clicou de novo no mesmo dia: cancela a seleção em andamento
+      anchoraPeriodo = null;
+      atualizarHintPeriodo();
+      renderCalendarioDiasUteis();
+      return;
+    }
+    const qtd = marcarIntervalo(anchoraPeriodo, chave, modo);
+    anchoraPeriodo = null;
+    const hint = document.getElementById("calPeriodoHint");
+    if(hint) hint.textContent = qtd+" dia"+(qtd!==1?"s":"")+" marcado"+(qtd!==1?"s":"")+" como "+ROTULO_TIPO_EXCECAO[modo]+".";
+    renderCalendarioDiasUteis();
+    atualizarEstatisticas();
+    renderGraficos();
+    return;
+  }
+
   // Clicar num dia que já tem o mesmo tipo do pincel ativo desmarca; clicar
   // num dia vazio ou com outro tipo aplica/reclassifica pro tipo ativo.
+  const excecoes = carregarExcecoesDias();
   if(excecoes[chave] === modo) delete excecoes[chave];
   else excecoes[chave] = modo;
   salvarExcecoesDias(excecoes);
@@ -4758,8 +4884,15 @@ function abrirModalCalendario(){
   const overlay = document.getElementById("calModalOverlay");
   if(!overlay) return;
   overlay.style.display = "flex";
+  modoPeriodoAtivo = false;
+  anchoraPeriodo = null;
+  const btn = document.getElementById("calPeriodoToggleBtn");
+  if(btn) btn.classList.remove("ativo");
+  const box = document.getElementById("calPeriodoBox");
+  if(box) box.classList.remove("aberta");
   renderCalendarioDiasUteis();
   selecionarModoMarcacao(modoMarcacaoAtivo);
+  atualizarHintPeriodo();
 }
 function fecharModalCalendario(e){
   if(!e || e.target===document.getElementById("calModalOverlay")){
@@ -4788,13 +4921,21 @@ function renderCalendarioDiasUteis(){
   const hoje = new Date();
   const ehHoje = (d) => hoje.getFullYear()===ano && hoje.getMonth()===mes && hoje.getDate()===d;
 
+  // Recesso forense só faz sentido em dezembro/janeiro — some da legenda
+  // nos demais meses (e evita deixar o pincel preso em "recesso" se o mês
+  // mudar enquanto ele estava ativo).
+  const recessoFazSentido = mes===11 || mes===0;
+  const btnRecesso = document.getElementById("calLegendaRecesso");
+  if(btnRecesso){
+    btnRecesso.style.display = recessoFazSentido ? "" : "none";
+    if(!recessoFazSentido && modoMarcacaoAtivo==="recesso") selecionarModoMarcacao("folga");
+  }
+
   const diasSemanaLabel = ["D","S","T","Q","Q","S","S"];
   let html = diasSemanaLabel.map(l=>`<div class="cal-dia-semana-label">${l}</div>`).join("");
   for(let i=0;i<primeiroDiaSemana;i++) html += `<div class="cal-dia-vazio"></div>`;
 
   let totalUteis = 0;
-  const ROTULO_TIPO = {atestado:"Atestado", feriado:"Feriado", ferias:"Férias", folga:"Folga"};
-  const CLASSE_TIPO = {atestado:"cal-dia-atestado", feriado:"cal-dia-feriado-manual", ferias:"cal-dia-ferias", folga:"cal-dia-folga"};
   for(let d=1; d<=ultimoDiaDoMes; d++){
     const data = new Date(ano, mes, d);
     const chave = dataParaChave(data);
@@ -4813,8 +4954,12 @@ function renderCalendarioDiasUteis(){
     if(fimDeSemana){ classe="cal-dia-fimsemana"; clicavel=false; titulo="Fim de semana"; }
     else if(feriadoNacional){ classe="cal-dia-feriado-nacional"; clicavel=false; titulo=nomeFeriado; }
     else if(tipoExcecao){
-      classe = CLASSE_TIPO[tipoExcecao] || "cal-dia-folga";
-      titulo = `Marcado como ${ROTULO_TIPO[tipoExcecao]||tipoExcecao} — clique novamente com o mesmo motivo ativo pra desmarcar`;
+      classe = CLASSE_TIPO_EXCECAO[tipoExcecao] || "cal-dia-folga";
+      titulo = `Marcado como ${ROTULO_TIPO_EXCECAO[tipoExcecao]||tipoExcecao} — clique novamente com o mesmo motivo ativo pra desmarcar`;
+    }
+    if(modoPeriodoAtivo && chave===anchoraPeriodo){
+      classe += " cal-dia-ancora";
+      titulo = "Início do período selecionado — clique no último dia";
     }
 
     const hojeClass = ehHoje(d) ? " cal-dia-hoje" : "";
@@ -4831,7 +4976,7 @@ function renderCalendarioDiasUteis(){
 function periodosExcecaoNoMes(ano, mes){
   const excecoes = carregarExcecoesDias();
   const prefixo = `${ano}-${String(mes+1).padStart(2,"0")}-`;
-  const diasPorTipo = {ferias:[], atestado:[], feriado:[], folga:[]};
+  const diasPorTipo = {ferias:[], atestado:[], feriado:[], folga:[], recesso:[]};
   Object.keys(excecoes).filter(k=>k.startsWith(prefixo)).sort().forEach(chave=>{
     const tipo = excecoes[chave]===true ? "folga" : excecoes[chave];
     const dia = parseInt(chave.split("-")[2],10);
@@ -4856,6 +5001,7 @@ function periodosExcecaoNoMes(ano, mes){
     atestado: formatarRanges(diasPorTipo.atestado),
     feriado: formatarRanges(diasPorTipo.feriado),
     folga: formatarRanges(diasPorTipo.folga),
+    recesso: formatarRanges(diasPorTipo.recesso),
   };
 }
 
@@ -4938,6 +5084,7 @@ function gerarPdfProdutividadeMes(){
     ["Atestado", periodos.atestado],
     ["Feriado", periodos.feriado],
     ["Folga", periodos.folga],
+    ["Recesso", periodos.recesso],
   ].filter(([,lista])=>lista.length);
 
   if(secoesExcecao.length){
@@ -4976,15 +5123,22 @@ function gerarPdfAnoAteMesAtual(){
   const mesLimite = (ano===anoAtualReal) ? mesAtualReal : 11; // ano já fechado: mostra até dezembro
 
   const nomesMes = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
-  let linhasMes = [], totalCalc=0, totalCert=0, periodosFeriasAno=[];
+  let linhasMes = [], totalCalc=0, totalCert=0;
+  const periodosAnoPorTipo = {ferias:[], atestado:[], feriado:[], folga:[], recesso:[]};
   for(let m=0; m<=mesLimite; m++){
     const prefixoM = `${ano}-${String(m+1).padStart(2,"0")}`;
     const calc = db.filter(p=>p.status==="Cálculo" && p.concluidoData && p.concluidoData.startsWith(prefixoM)).length;
     const cert = db.filter(p=>p.status==="Certidão" && p.concluidoData && p.concluidoData.startsWith(prefixoM)).length;
-    const feriasDoMes = periodosExcecaoNoMes(ano, m).ferias;
-    if(feriasDoMes.length) periodosFeriasAno.push(...feriasDoMes);
+    const excecoesDoMes = periodosExcecaoNoMes(ano, m);
+    const tiposDoMes = [];
+    Object.keys(ROTULO_TIPO_EXCECAO).forEach(tipo=>{
+      if(excecoesDoMes[tipo] && excecoesDoMes[tipo].length){
+        periodosAnoPorTipo[tipo].push(...excecoesDoMes[tipo]);
+        tiposDoMes.push(ROTULO_TIPO_EXCECAO[tipo].toLowerCase());
+      }
+    });
     totalCalc += calc; totalCert += cert;
-    linhasMes.push([nomesMes[m]+(feriasDoMes.length?" (com férias)":""), String(calc), String(cert), String(calc+cert)]);
+    linhasMes.push([nomesMes[m]+(tiposDoMes.length?" (com "+tiposDoMes.join(", ")+")":""), String(calc), String(cert), String(calc+cert)]);
   }
   const totalAno = totalCalc + totalCert;
   const mediaMes = totalAno / (mesLimite+1);
@@ -5064,11 +5218,15 @@ function gerarPdfAnoAteMesAtual(){
   });
 
   let yy = doc.lastAutoTable.finalY + 8;
-  if(periodosFeriasAno.length){
-    doc.setFont("helvetica","bold"); doc.setFontSize(10); doc.setTextColor(109,40,217);
-    doc.text("Férias no ano: "+periodosFeriasAno.join(", "), margem, yy);
+  const coresTipo = {ferias:[109,40,217], atestado:[190,24,93], feriado:[14,116,144], folga:[180,83,9], recesso:[67,56,202]};
+  Object.keys(ROTULO_TIPO_EXCECAO).forEach(tipo=>{
+    const lista = periodosAnoPorTipo[tipo];
+    if(!lista.length) return;
+    doc.setFont("helvetica","bold"); doc.setFontSize(10);
+    doc.setTextColor(...(coresTipo[tipo]||[71,85,105]));
+    doc.text(ROTULO_TIPO_EXCECAO[tipo]+" no ano: "+lista.join(", "), margem, yy);
     yy += 6;
-  }
+  });
 
   doc.setDrawColor(226,232,240); doc.setLineWidth(0.3);
   doc.line(margem, yy, 210-margem, yy);
