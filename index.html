@@ -705,13 +705,13 @@ body.dark .ev-outro,body.dark .ev-default{background:rgba(255,255,255,.05)!impor
 .ev-dd-list{
   display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:500;
   background:#fff;border:1px solid #e2e8f0;border-radius:12px;
-  min-width:200px;max-height:280px;
+  min-width:200px;max-height:420px;
   box-shadow:0 8px 24px rgba(15,23,42,.12);
   flex-direction:column;
 }
 body.dark .ev-dd-list{background:#23262d;border-color:#343843;box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .ev-dd-list.open{display:flex}
-.ev-dd-scroll{overflow-y:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ev-dd-scroll{overflow-y:auto;flex:1;min-height:130px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .ev-dd-scroll::-webkit-scrollbar{width:4px}
 .ev-dd-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 .ev-dd-sec{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#94a3b8;padding:8px 12px 4px;pointer-events:none}
@@ -3212,7 +3212,7 @@ function evDDToggle(id){
     const rect=trigger.getBoundingClientRect();
     const spaceBelow=window.innerHeight - rect.bottom;
     const spaceAbove=rect.top;
-    if(spaceBelow < 300 && spaceAbove > spaceBelow){
+    if(spaceBelow < 420 && spaceAbove > spaceBelow){
       list.style.top='auto';
       list.style.bottom='calc(100% + 4px)';
     } else {
@@ -3244,7 +3244,7 @@ function evDDPopulate(id){
     hScroll+=`<div class="ev-dd-divider"></div><div class="ev-dd-sec">Todos</div>`;
   }
   todos.forEach(e=>{
-    if(!e) return;
+    if(!e||top3.includes(e)) return;
     const ativo=e===valorAtual?' ev-dd-ativo':'';
     hScroll+=`<div class="ev-dd-opt${ativo}" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-txt">${esc(e)}</span></div>`;
   });
