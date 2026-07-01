@@ -705,11 +705,15 @@ body.dark .ev-outro,body.dark .ev-default{background:rgba(255,255,255,.05)!impor
 .ev-dd-list{
   display:none;position:absolute;top:calc(100% + 4px);left:0;z-index:500;
   background:#fff;border:1px solid #e2e8f0;border-radius:12px;
-  min-width:200px;max-height:280px;overflow-y:auto;
+  min-width:200px;max-height:280px;
   box-shadow:0 8px 24px rgba(15,23,42,.12);
+  flex-direction:column;
 }
 body.dark .ev-dd-list{background:#23262d;border-color:#343843;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.ev-dd-list.open{display:block}
+.ev-dd-list.open{display:flex}
+.ev-dd-scroll{overflow-y:auto;flex:1;min-height:0;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ev-dd-scroll::-webkit-scrollbar{width:4px}
+.ev-dd-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 .ev-dd-sec{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#94a3b8;padding:8px 12px 4px;pointer-events:none}
 .ev-dd-divider{height:1px;background:#f1f5f9;margin:4px 0}
 body.dark .ev-dd-divider{background:#343843}
@@ -3224,8 +3228,7 @@ function evDDPopulate(id){
   const top3=getTopEventos(3);
   const tituloTop=carregarFixados().length ? 'Fixados' : 'Mais usados';
   const todos=todosEventos().filter(e=>e!=='');
-  let h='';
-  h+=`<div class="ev-dd-topo">
+  let hTopo=`<div class="ev-dd-topo">
     <span class="ev-dd-sec">${top3.length?tituloTop:''}</span>
     <button type="button" class="ev-dd-config-btn" onclick="event.stopPropagation();abrirPersonalizarEventos()" title="Personalizar eventos">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
@@ -3233,16 +3236,19 @@ function evDDPopulate(id){
   </div>`;
   if(top3.length){
     top3.forEach(e=>{
-      h+=`<div class="ev-dd-opt" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-pill ${classeEvento(e)}">${iconeEventoMarco(e)}${esc(e)}</span></div>`;
+      hTopo+=`<div class="ev-dd-opt" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-pill ${classeEvento(e)}">${iconeEventoMarco(e)}${esc(e)}</span></div>`;
     });
-    h+=`<div class="ev-dd-divider"></div><div class="ev-dd-sec">Todos</div>`;
+  }
+  let hScroll='';
+  if(top3.length){
+    hScroll+=`<div class="ev-dd-divider"></div><div class="ev-dd-sec">Todos</div>`;
   }
   todos.forEach(e=>{
     if(!e) return;
     const ativo=e===valorAtual?' ev-dd-ativo':'';
-    h+=`<div class="ev-dd-opt${ativo}" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-txt">${esc(e)}</span></div>`;
+    hScroll+=`<div class="ev-dd-opt${ativo}" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-txt">${esc(e)}</span></div>`;
   });
-  list.innerHTML=h;
+  list.innerHTML = hTopo + `<div class="ev-dd-scroll">${hScroll}</div>`;
 }
 function evDDPick(id,valor){
   const dd=document.getElementById(id);
