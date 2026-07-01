@@ -186,6 +186,18 @@ body.dark .lote-tab.ativa{
   background:#fef3c7;color:#92400e;cursor:pointer;
 }
 .cal-dia-numero.cal-dia-folga:hover{background:#fde68a}
+.cal-dia-numero.cal-dia-atestado{
+  background:#fce7f3;color:#9d174d;cursor:pointer;
+}
+.cal-dia-numero.cal-dia-atestado:hover{background:#fbcfe8}
+.cal-dia-numero.cal-dia-feriado-manual{
+  background:#cffafe;color:#155e75;cursor:pointer;
+}
+.cal-dia-numero.cal-dia-feriado-manual:hover{background:#a5f3fc}
+.cal-dia-numero.cal-dia-ferias{
+  background:#ede9fe;color:#5b21b6;cursor:pointer;
+}
+.cal-dia-numero.cal-dia-ferias:hover{background:#ddd6fe}
 .cal-dia-numero.cal-dia-feriado-nacional{
   background:#fee2e2;color:#991b1b;cursor:default;
 }
@@ -203,17 +215,44 @@ body.dark .cal-dia-numero.cal-dia-util{background:rgba(37,99,235,.15);color:#93c
 body.dark .cal-dia-numero.cal-dia-util:hover{background:rgba(37,99,235,.25)}
 body.dark .cal-dia-numero.cal-dia-folga{background:rgba(245,158,11,.15);color:#fbbf24}
 body.dark .cal-dia-numero.cal-dia-folga:hover{background:rgba(245,158,11,.25)}
+body.dark .cal-dia-numero.cal-dia-atestado{background:rgba(236,72,153,.18);color:#f9a8d4}
+body.dark .cal-dia-numero.cal-dia-atestado:hover{background:rgba(236,72,153,.28)}
+body.dark .cal-dia-numero.cal-dia-feriado-manual{background:rgba(8,145,178,.2);color:#67e8f9}
+body.dark .cal-dia-numero.cal-dia-feriado-manual:hover{background:rgba(8,145,178,.3)}
+body.dark .cal-dia-numero.cal-dia-ferias{background:rgba(139,92,246,.18);color:#c4b5fd}
+body.dark .cal-dia-numero.cal-dia-ferias:hover{background:rgba(139,92,246,.28)}
 body.dark .cal-dia-numero.cal-dia-feriado-nacional{background:rgba(239,68,68,.12);color:#fca5a5}
 body.dark .cal-dia-numero.cal-dia-hoje{outline-color:#60a5fa}
 
 .cal-legenda-dot{
   display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:middle;
 }
+.cal-legenda-item{display:inline-flex;align-items:center;padding:3px 2px}
 .cal-legenda-dot.cal-dia-util{background:#3b82f6}
 .cal-legenda-dot.cal-dia-folga{background:#f59e0b}
+.cal-legenda-dot.cal-dia-atestado{background:#ec4899}
+.cal-legenda-dot.cal-dia-feriado-manual{background:#0891b2}
+.cal-legenda-dot.cal-dia-ferias{background:#8b5cf6}
 .cal-legenda-dot.cal-dia-hoje{background:transparent;border:2px solid #2563eb;border-radius:3px}
 .cal-legenda-dot.cal-dia-feriado-nacional{background:#ef4444}
 .cal-legenda-dot.cal-dia-fimsemana{background:#cbd5e1}
+
+/* Legenda-pincel: clica no motivo pra ativar o "modo de marcação", depois
+   clica nos dias — todo dia clicado com o pincel ativo recebe aquele tipo. */
+.cal-legenda-clicavel{
+  display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;
+  color:var(--muted);background:transparent;border:1.5px solid var(--line);
+  border-radius:999px;padding:3px 10px;cursor:pointer;transition:all .15s;font-family:inherit;
+}
+.cal-legenda-clicavel:hover{border-color:var(--muted)}
+.cal-legenda-clicavel[data-tipo="atestado"].ativo{color:#db2777;background:rgba(236,72,153,.1);border-color:#ec4899}
+.cal-legenda-clicavel[data-tipo="feriado"].ativo{color:#0e7490;background:rgba(8,145,178,.1);border-color:#0891b2}
+.cal-legenda-clicavel[data-tipo="ferias"].ativo{color:#7c3aed;background:rgba(139,92,246,.1);border-color:#8b5cf6}
+.cal-legenda-clicavel[data-tipo="folga"].ativo{color:#b45309;background:rgba(245,158,11,.1);border-color:#f59e0b}
+body.dark .cal-legenda-clicavel[data-tipo="atestado"].ativo{color:#f9a8d4}
+body.dark .cal-legenda-clicavel[data-tipo="feriado"].ativo{color:#67e8f9}
+body.dark .cal-legenda-clicavel[data-tipo="ferias"].ativo{color:#c4b5fd}
+body.dark .cal-legenda-clicavel[data-tipo="folga"].ativo{color:#fbbf24}
 
 /* ── Toggle switch genérico (usado no Modo Vintage) ── */
 .toggle-switch{
@@ -699,7 +738,8 @@ body.dark .ev-outro,body.dark .ev-default{background:rgba(255,255,255,.05)!impor
   transition:opacity .15s;
 }
 .ev-dd-trigger:hover{opacity:.85}
-.ev-dd-trigger.ev-marco{border-radius:0 6px 6px 0!important}
+.ev-dd-trigger.ev-marco{border-radius:0 6px 6px 0!important;border-left:4px solid #15803d!important}
+body.dark .ev-dd-trigger.ev-marco{border-left-color:#10b981!important}
 .ev-dd-arrow{font-size:8px;opacity:.45;flex-shrink:0;transition:transform .15s}
 .ev-dd-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ev-dd-list{
@@ -711,7 +751,7 @@ body.dark .ev-outro,body.dark .ev-default{background:rgba(255,255,255,.05)!impor
 }
 body.dark .ev-dd-list{background:#23262d;border-color:#343843;box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .ev-dd-list.open{display:flex}
-.ev-dd-scroll{overflow-y:auto;flex:1;min-height:130px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.ev-dd-scroll{overflow-y:auto;flex:1;min-height:130px;max-height:250px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 .ev-dd-scroll::-webkit-scrollbar{width:4px}
 .ev-dd-scroll::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
 .ev-dd-sec{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#94a3b8;padding:8px 12px 4px;pointer-events:none}
@@ -726,9 +766,9 @@ body.dark .ev-dd-opt:hover{background:#2a2e37!important}
 body.dark .date-group button:hover{background:rgba(255,255,255,.06)!important}
 body.dark .anot-tab.anot-tab-ativa{background:rgba(255,255,255,.06)!important}
 .ev-dd-opt.ev-dd-ativo{background:#f0f7ff}
-.ev-dd-topo{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:2px 6px 2px 12px}
-.ev-dd-topo .ev-dd-sec{padding:6px 0}
-.ev-dd-config-btn{background:none;border:none;cursor:pointer;color:var(--muted);padding:5px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:color .15s,background .15s}
+.ev-dd-topo{position:relative;display:flex;align-items:center;justify-content:center;padding:6px 30px 6px 12px}
+.ev-dd-topo .ev-dd-sec{padding:0;text-align:center}
+.ev-dd-config-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);padding:5px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:color .15s,background .15s}
 .ev-dd-config-btn:hover{color:var(--text);background:#f8fafc}
 body.dark .ev-dd-config-btn:hover{background:#2a2e37}
 #telaLogin{background:#f8fafc !important;color-scheme:light !important}
@@ -1665,6 +1705,10 @@ onAuthStateChanged(auth, async (user)=>{
         </button>
       </div>
       <button type="button" class="hoje-pill" id="btnHoje" onclick="histDate.value=today();renderHistorico()">Hoje</button>
+      <button type="button" class="cfg-btn" onclick="gerarPdfHistoricoDia()" title="Gerar PDF deste dia">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        Gerar PDF
+      </button>
     </div>
     <div class="hist-seg">
       <button class="hist-seg-btn ativo" id="histSegTodos" onclick="setHistFiltro('')">Todos</button>
@@ -1702,6 +1746,10 @@ onAuthStateChanged(auth, async (user)=>{
         </button>
       </div>
       <button type="button" class="hoje-pill" id="btnMesAtualEst" onclick="irParaMesAtualEstatisticas()">Mês atual</button>
+      <button type="button" class="cfg-btn" onclick="gerarPdfProdutividadeMes()" title="Gerar PDF de produtividade deste mês">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        PDF do mês
+      </button>
     </div>
   </div>
 
@@ -1720,13 +1768,15 @@ onAuthStateChanged(auth, async (user)=>{
         <span style="font-size:13px;font-weight:600;color:var(--text)">Dias úteis do mês</span>
         <button onclick="fecharModalCalendario()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center">×</button>
       </div>
-      <div class="small" style="margin-bottom:12px">Clique nos dias para marcar férias, atestado ou folga. Fins de semana e feriados nacionais já ficam de fora automaticamente.</div>
+      <div class="small" style="margin-bottom:12px">Selecione o motivo abaixo e clique nos dias para marcar. Fins de semana e feriados nacionais já ficam de fora automaticamente.</div>
       <div id="calDiasUteisGrid" class="cal-dias-uteis-grid"></div>
-      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:11px;color:var(--muted)">
-        <span><span class="cal-legenda-dot cal-dia-util"></span> útil</span>
-        <span><span class="cal-legenda-dot cal-dia-folga"></span> feriado / folga</span>
-        <span><span class="cal-legenda-dot cal-dia-hoje"></span> hoje</span>
-        <span><span class="cal-legenda-dot cal-dia-fimsemana"></span> fim de semana</span>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px;font-size:11px;color:var(--muted)">
+        <span class="cal-legenda-item"><span class="cal-legenda-dot cal-dia-util"></span> útil</span>
+        <button type="button" class="cal-legenda-clicavel" data-tipo="atestado" onclick="selecionarModoMarcacao('atestado')"><span class="cal-legenda-dot cal-dia-atestado"></span> atestado</button>
+        <button type="button" class="cal-legenda-clicavel" data-tipo="feriado" onclick="selecionarModoMarcacao('feriado')"><span class="cal-legenda-dot cal-dia-feriado-manual"></span> feriado</button>
+        <button type="button" class="cal-legenda-clicavel" data-tipo="ferias" onclick="selecionarModoMarcacao('ferias')"><span class="cal-legenda-dot cal-dia-ferias"></span> férias</button>
+        <button type="button" class="cal-legenda-clicavel ativo" data-tipo="folga" onclick="selecionarModoMarcacao('folga')"><span class="cal-legenda-dot cal-dia-folga"></span> folga</button>
+        <span class="cal-legenda-item"><span class="cal-legenda-dot cal-dia-hoje"></span> hoje</span>
       </div>
     </div>
   </div>
@@ -1743,6 +1793,22 @@ onAuthStateChanged(auth, async (user)=>{
   <div class="card" style="margin-top:20px">
     <div class="card-title"><span class="card-title-left" id="estBarrasTitulo">Concluídos por dia</span></div>
     <div style="height:320px;position:relative"><canvas id="chartBarras"></canvas></div>
+  </div>
+
+  <div class="card" style="margin-top:20px">
+    <div class="card-title">
+      <span class="card-title-left">Histórico do ano — <span id="estLinhaAnoTitulo"></span></span>
+      <button type="button" class="cfg-btn" onclick="gerarPdfAnoAteMesAtual()" title="Gerar PDF do ano até o mês atual">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+        PDF do ano
+      </button>
+    </div>
+    <div class="small" style="margin-bottom:10px">Total concluído (Cálculo + Certidão) por mês.</div>
+    <div style="height:280px;position:relative"><canvas id="chartLinhaAno"></canvas></div>
+    <div style="display:flex;gap:16px;margin-top:10px;font-size:11px;color:var(--muted)">
+      <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#3b82f6;display:inline-block"></span> mês normal</span>
+      <span style="display:inline-flex;align-items:center;gap:5px"><span style="width:8px;height:8px;border-radius:50%;background:#8b5cf6;display:inline-block"></span> mês com férias</span>
+    </div>
   </div>
 
 </section>
@@ -1772,6 +1838,17 @@ onAuthStateChanged(auth, async (user)=>{
     <label class="cfg-label">Seu nome</label>
     <input id="cfgNomeCarimbo" class="cfg-input-line" placeholder="Seu nome" oninput="salvarNomeCarimbo()">
     <div class="cfg-hint">Aparece no carimbo ao concluir um processo. Se vazio, o carimbo sai sem nome.</div>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <div class="card-title"><span class="card-title-left">Identificação para relatórios</span></div>
+    <label class="cfg-label">Nome completo</label>
+    <input id="cfgNomeCompleto" class="cfg-input-line" placeholder="Ex: Maria Aparecida da Silva" oninput="salvarIdentificacaoRelatorio()" style="margin-bottom:10px">
+    <label class="cfg-label">Setor</label>
+    <input id="cfgSetor" class="cfg-input-line" placeholder="Ex: Contadoria Judicial" oninput="salvarIdentificacaoRelatorio()" style="margin-bottom:10px">
+    <label class="cfg-label">Núcleo</label>
+    <input id="cfgNucleo" class="cfg-input-line" placeholder="Ex: Núcleo 3" oninput="salvarIdentificacaoRelatorio()">
+    <div class="cfg-hint">Aparece no cabeçalho do PDF de produtividade.</div>
   </div>
 
   <div class="card" id="cardModoVintage">
@@ -1883,6 +1960,26 @@ function salvarNomeCarimbo(){
 }
 function carregarNomeCarimbo(){
   return localStorage.getItem("prod_v5_nome_carimbo") || "";
+}
+
+function salvarIdentificacaoRelatorio(){
+  const nome = document.getElementById("cfgNomeCompleto");
+  const setor = document.getElementById("cfgSetor");
+  const nucleo = document.getElementById("cfgNucleo");
+  if(nome) localStorage.setItem("prod_v5_relatorio_nome", nome.value.trim());
+  if(setor) localStorage.setItem("prod_v5_relatorio_setor", setor.value.trim());
+  if(nucleo) localStorage.setItem("prod_v5_relatorio_nucleo", nucleo.value.trim());
+}
+function carregarIdentificacaoRelatorio(){
+  return {
+    nome: localStorage.getItem("prod_v5_relatorio_nome") || "",
+    setor: localStorage.getItem("prod_v5_relatorio_setor") || "",
+    nucleo: localStorage.getItem("prod_v5_relatorio_nucleo") || "",
+  };
+}
+function identificacaoRelatorioCompleta(){
+  const id = carregarIdentificacaoRelatorio();
+  return !!(id.nome && id.setor && id.nucleo);
 }
 
 const ANOT_KEY = "prod_v5_anotacoes";
@@ -2526,6 +2623,13 @@ function page(id){
   if(id==="config"){
     const input = document.getElementById("cfgNomeCarimbo");
     if(input) input.value = carregarNomeCarimbo();
+    const idRel = carregarIdentificacaoRelatorio();
+    const nomeEl = document.getElementById("cfgNomeCompleto");
+    const setorEl = document.getElementById("cfgSetor");
+    const nucleoEl = document.getElementById("cfgNucleo");
+    if(nomeEl) nomeEl.value = idRel.nome;
+    if(setorEl) setorEl.value = idRel.setor;
+    if(nucleoEl) nucleoEl.value = idRel.nucleo;
   }
   if(id==="estatisticas") document.getElementById("nav-estatisticas").classList.add("active");
 }
@@ -2839,9 +2943,23 @@ function copiarNumeroLista(numero,btn){
 // existir no DOM mesmo que o mesmo processo continue na lista.
 function aplicarMarcaCopiado(){
   if(!ultimoProcessoCopiadoNumero) return;
-  document.querySelectorAll(".copy-proc[data-numero]").forEach(b=>{
+  // Restrito aos containers de "Meus processos" (modo Padrão + modo Lista/
+  // Lotes) — não deve vazar pro Histórico diário, que tem seu próprio botão
+  // de copiar com comportamento temporário (copiarNumeroTemporario).
+  document.querySelectorAll("#tbody .copy-proc[data-numero], #lotesContainer .copy-proc[data-numero]").forEach(b=>{
     b.classList.toggle("copiado", b.dataset.numero === ultimoProcessoCopiadoNumero);
   });
+}
+
+// Versão usada fora de "Meus processos" (Histórico diário): mostra o check
+// só no botão clicado e some sozinho depois de um tempo — não fica marcado
+// "para sempre" até copiar outro, como acontece em Meus processos.
+function copiarNumeroTemporario(numero,btn){
+  navigator.clipboard.writeText(numero);
+  if(!btn) return;
+  clearTimeout(btn._copiadoTimer);
+  btn.classList.add("copiado");
+  btn._copiadoTimer = setTimeout(()=>btn.classList.remove("copiado"), 1500);
 }
 
 /* Marca/desmarca um processo como "pendência em duplicidade" — flag
@@ -3288,10 +3406,16 @@ function salvarEventoPersonalizado(nome){
 }
 function todosEventos(){
   const ordemSalva = carregarOrdemEventos ? carregarOrdemEventos() : null;
-  if(ordemSalva) return ["", ...ordemSalva];
-  const padrao=eventosPadrao();
-  const custom=eventosPersonalizados().filter(x=>!padrao.some(p=>p.toLowerCase()===x.toLowerCase()));
-  return ["",...padrao,...custom];
+  let lista;
+  if(ordemSalva){
+    lista = [...ordemSalva];
+  } else {
+    const padrao=eventosPadrao();
+    const custom=eventosPersonalizados().filter(x=>!padrao.some(p=>p.toLowerCase()===x.toLowerCase()));
+    lista = [...padrao,...custom];
+  }
+  lista.sort((a,b)=>a.localeCompare(b,"pt-BR",{sensitivity:"base"}));
+  return ["",...lista];
 }
 function retornoIconHtml(n){
   return '<span class="retorno-icon" title="Processo retornou para análise">↩'+(n>1?' '+n:'')+'</span>';
@@ -4187,16 +4311,12 @@ function setHistFiltro(val){
   renderHistorico();
 }
 
-function renderHistorico(){
-  if(!histDate.value) return;
-  let d=histDate.value;
-  const btnHojeEl = document.getElementById("btnHoje");
-  if(btnHojeEl) btnHojeEl.classList.toggle("ativo", d===today());
-  // Achata todos os registros do log de histórico de todos os processos,
-  // filtrando pela data escolhida. Cada entrada é um evento congelado —
-  // o mesmo processo pode aparecer em vários dias diferentes, uma vez
-  // para cada vez que foi lançado com algum status (Aguardando ajuda em
-  // 16/06, depois Cálculo em 19/06, por exemplo), sem nenhum deles sumir.
+// Achata todos os registros do log de histórico de todos os processos,
+// filtrando pela data escolhida. Cada entrada é um evento congelado — o
+// mesmo processo pode aparecer em vários dias diferentes, uma vez para
+// cada vez que foi lançado com algum status (Aguardando ajuda em 16/06,
+// depois Cálculo em 19/06, por exemplo), sem nenhum deles sumir.
+function eventosDoDia(d){
   let eventos = [];
   db.forEach((p,idx)=>{
     const log = Array.isArray(p.logHistorico) ? p.logHistorico : (
@@ -4209,6 +4329,14 @@ function renderHistorico(){
     });
   });
   eventos.sort((a,b)=>(a.hora||"").localeCompare(b.hora||""));
+  return eventos;
+}
+function renderHistorico(){
+  if(!histDate.value) return;
+  let d=histDate.value;
+  const btnHojeEl = document.getElementById("btnHoje");
+  if(btnHojeEl) btnHojeEl.classList.toggle("ativo", d===today());
+  let eventos = eventosDoDia(d);
   const filtroAtivo = window._histFiltroAtivo || "";
   if(filtroAtivo==="concluidos"){
     eventos = eventos.filter(ev=>["Cálculo","Certidão"].includes(ev.status));
@@ -4221,7 +4349,7 @@ function renderHistorico(){
     eventos.map((ev,i)=>{
       const divergente = ev.status !== ev.statusAtual;
       return `<tr ondblclick="openAnalise(${ev.idx})" data-numero="${esc(ev.numero)}" data-status="${esc(ev.status)}"><td style="width:20px;position:relative;padding:0"></td><td>${i+1}</td><td>${ev.hora||""}</td><td class="proc"><div class="proc-wrap"><span class="proc-hist proc-hist-${statusClass(ev.status)}">${esc(ev.numero)}</span>
-<button class="copy-proc" data-numero="${esc(ev.numero)}" title="Copiar processo" onclick="event.stopPropagation();copiarNumeroLista('${esc(ev.numero)}',this)">
+<button class="copy-proc" data-numero="${esc(ev.numero)}" title="Copiar processo" onclick="event.stopPropagation();copiarNumeroTemporario('${esc(ev.numero)}',this)">
 <span class="copy-icon-face icon-copy"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>
 <span class="copy-icon-face icon-check">✓</span>
 </button>${dupBadgeHtml(db[ev.idx], ev.idx)}</div></td><td>
@@ -4232,6 +4360,67 @@ function renderHistorico(){
   }</tbody></table></div>`;
   aplicarMarcaCopiado();
   setTimeout(desenharConectoresHistorico, 50);
+}
+
+function gerarPdfHistoricoDia(){
+  if(!histDate.value) return;
+  if(!window.jspdf){ alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão e tente novamente."); return; }
+  const d = histDate.value;
+  const eventos = eventosDoDia(d);
+  if(!eventos.length){
+    alert("Nenhum processo lançado em "+br(d)+".");
+    return;
+  }
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:"mm", format:"a4"});
+  const margem = 15;
+  let y = 20;
+
+  doc.setFont("helvetica","bold"); doc.setFontSize(17); doc.setTextColor(23,32,51);
+  doc.text("Histórico Diário", margem, y);
+  y += 7;
+  doc.setFont("helvetica","normal"); doc.setFontSize(10.5); doc.setTextColor(71,85,105);
+  doc.text("Dia: "+br(d), margem, y);
+  y += 5;
+  const agora = new Date();
+  doc.text("Gerado em "+agora.toLocaleDateString("pt-BR")+" às "+agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}), margem, y);
+  y += 6;
+  doc.setDrawColor(37,99,235); doc.setLineWidth(0.8);
+  doc.line(margem, y, 210-margem, y);
+  y += 8;
+
+  const linhas = eventos.map((ev,i)=>[String(i+1), ev.hora||"", ev.numero, ev.status, ev.assunto||"-"]);
+  doc.autoTable({
+    startY: y,
+    margin: {left: margem, right: margem},
+    head: [["#","Horário","Processo","Status","Assunto"]],
+    body: linhas,
+    styles: {fontSize:9, cellPadding:2.6, textColor:[51,65,85]},
+    headStyles: {fillColor:[23,32,51], textColor:255, fontStyle:"bold"},
+    alternateRowStyles: {fillColor:[241,245,249]},
+    columnStyles: {0:{cellWidth:8, halign:"center"}, 1:{cellWidth:18, halign:"center"}, 2:{cellWidth:52, font:"courier", fontStyle:"bold"}, 3:{cellWidth:32}},
+    didParseCell: function(dados){
+      if(dados.column.index===3 && dados.cell.section==="body"){
+        if(dados.cell.raw==="Cálculo") dados.cell.styles.textColor=[22,101,52];
+        else if(dados.cell.raw==="Certidão") dados.cell.styles.textColor=[133,77,14];
+      }
+    },
+  });
+
+  const yFinal = doc.lastAutoTable.finalY + 8;
+  const calc = eventos.filter(e=>e.status==="Cálculo").length;
+  const cert = eventos.filter(e=>e.status==="Certidão").length;
+  const outros = eventos.length - calc - cert;
+  doc.setFillColor(239,246,255); doc.setDrawColor(191,219,254); doc.setLineWidth(0.4);
+  doc.roundedRect(margem, yFinal, 210-margem*2, 10, 2, 2, "FD");
+  doc.setTextColor(37,99,235); doc.setFont("helvetica","bold"); doc.setFontSize(10);
+  let resumoTxt = eventos.length+" lançamento"+(eventos.length!==1?"s":"")+" no dia";
+  if(calc) resumoTxt += "   •   "+calc+" Cálculo";
+  if(cert) resumoTxt += "   •   "+cert+" Certidão";
+  if(outros) resumoTxt += "   •   "+outros+" outro"+(outros!==1?"s":"");
+  doc.text(resumoTxt, 105, yFinal+6.5, {align:"center"});
+
+  doc.save("Historico_Diario_"+d+".pdf");
 }
 
 function desenharConectoresHistorico(){
@@ -4530,14 +4719,35 @@ function salvarExcecoesDias(obj){
 function dataParaChave(data){
   return `${data.getFullYear()}-${String(data.getMonth()+1).padStart(2,"0")}-${String(data.getDate()).padStart(2,"0")}`;
 }
-function ehExcecaoManual(data){
+// Cada exceção guarda o tipo específico ("atestado"|"feriado"|"ferias"|"folga").
+// Compatibilidade: dados antigos gravavam apenas "true" (genérico) — tratados
+// como "folga" ao serem lidos.
+function obterTipoExcecao(data){
   const excecoes = carregarExcecoesDias();
-  return !!excecoes[dataParaChave(data)];
+  const v = excecoes[dataParaChave(data)];
+  if(!v) return null;
+  return v===true ? "folga" : v;
+}
+function ehExcecaoManual(data){
+  return !!obterTipoExcecao(data);
+}
+// "Pincel" ativo na legenda do calendário: define qual tipo é aplicado ao
+// clicar num dia. Começa em "folga" (o mais comum / equivalente ao clique
+// simples de antes).
+let modoMarcacaoAtivo = "folga";
+function selecionarModoMarcacao(tipo){
+  modoMarcacaoAtivo = tipo;
+  document.querySelectorAll(".cal-legenda-clicavel").forEach(b=>{
+    b.classList.toggle("ativo", b.dataset.tipo===tipo);
+  });
 }
 function toggleExcecaoDia(chave){
   const excecoes = carregarExcecoesDias();
-  if(excecoes[chave]) delete excecoes[chave];
-  else excecoes[chave] = true;
+  const modo = modoMarcacaoAtivo || "folga";
+  // Clicar num dia que já tem o mesmo tipo do pincel ativo desmarca; clicar
+  // num dia vazio ou com outro tipo aplica/reclassifica pro tipo ativo.
+  if(excecoes[chave] === modo) delete excecoes[chave];
+  else excecoes[chave] = modo;
   salvarExcecoesDias(excecoes);
   renderCalendarioDiasUteis();
   atualizarEstatisticas();
@@ -4549,6 +4759,7 @@ function abrirModalCalendario(){
   if(!overlay) return;
   overlay.style.display = "flex";
   renderCalendarioDiasUteis();
+  selecionarModoMarcacao(modoMarcacaoAtivo);
 }
 function fecharModalCalendario(e){
   if(!e || e.target===document.getElementById("calModalOverlay")){
@@ -4582,6 +4793,8 @@ function renderCalendarioDiasUteis(){
   for(let i=0;i<primeiroDiaSemana;i++) html += `<div class="cal-dia-vazio"></div>`;
 
   let totalUteis = 0;
+  const ROTULO_TIPO = {atestado:"Atestado", feriado:"Feriado", ferias:"Férias", folga:"Folga"};
+  const CLASSE_TIPO = {atestado:"cal-dia-atestado", feriado:"cal-dia-feriado-manual", ferias:"cal-dia-ferias", folga:"cal-dia-folga"};
   for(let d=1; d<=ultimoDiaDoMes; d++){
     const data = new Date(ano, mes, d);
     const chave = dataParaChave(data);
@@ -4590,16 +4803,19 @@ function renderCalendarioDiasUteis(){
     const mesDia = String(mes+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");
     const feriadoNacional = FERIADOS_FIXOS_MES_DIA.includes(mesDia);
     const nomeFeriado = FERIADOS_NOMES[mesDia] || "Feriado nacional";
-    const excecao = ehExcecaoManual(data);
-    const util = !fimDeSemana && !feriadoNacional && !excecao;
+    const tipoExcecao = obterTipoExcecao(data);
+    const util = !fimDeSemana && !feriadoNacional && !tipoExcecao;
     if(util) totalUteis++;
 
     let classe = "cal-dia-util";
     let clicavel = true;
-    let titulo = "Dia útil — clique para marcar como folga/férias/atestado";
+    let titulo = "Dia útil — selecione um motivo na legenda e clique pra marcar";
     if(fimDeSemana){ classe="cal-dia-fimsemana"; clicavel=false; titulo="Fim de semana"; }
     else if(feriadoNacional){ classe="cal-dia-feriado-nacional"; clicavel=false; titulo=nomeFeriado; }
-    else if(excecao){ classe="cal-dia-folga"; titulo="Marcado como folga/férias/atestado — clique para desmarcar"; }
+    else if(tipoExcecao){
+      classe = CLASSE_TIPO[tipoExcecao] || "cal-dia-folga";
+      titulo = `Marcado como ${ROTULO_TIPO[tipoExcecao]||tipoExcecao} — clique novamente com o mesmo motivo ativo pra desmarcar`;
+    }
 
     const hojeClass = ehHoje(d) ? " cal-dia-hoje" : "";
     html += `<div class="cal-dia-numero ${classe}${hojeClass}" title="${titulo}" ${clicavel?`onclick="toggleExcecaoDia('${chave}')"`:''}>${d}</div>`;
@@ -4608,6 +4824,259 @@ function renderCalendarioDiasUteis(){
 
   const resumo = document.getElementById("calDiasUteisTexto");
   if(resumo) resumo.textContent = totalUteis + " dias úteis no mês";
+}
+
+// Agrupa os dias marcados manualmente (exceções) de um mês em faixas
+// consecutivas por tipo, ex: {ferias:["15/06 a 19/06"], atestado:["03/06"]}
+function periodosExcecaoNoMes(ano, mes){
+  const excecoes = carregarExcecoesDias();
+  const prefixo = `${ano}-${String(mes+1).padStart(2,"0")}-`;
+  const diasPorTipo = {ferias:[], atestado:[], feriado:[], folga:[]};
+  Object.keys(excecoes).filter(k=>k.startsWith(prefixo)).sort().forEach(chave=>{
+    const tipo = excecoes[chave]===true ? "folga" : excecoes[chave];
+    const dia = parseInt(chave.split("-")[2],10);
+    if(diasPorTipo[tipo]) diasPorTipo[tipo].push(dia);
+  });
+  const mesStr = String(mes+1).padStart(2,"0");
+  const formatarRanges = (dias) => {
+    if(!dias.length) return [];
+    dias.sort((a,b)=>a-b);
+    const ranges=[]; let inicio=dias[0], fim=dias[0];
+    for(let i=1;i<dias.length;i++){
+      if(dias[i]===fim+1){ fim=dias[i]; }
+      else { ranges.push([inicio,fim]); inicio=fim=dias[i]; }
+    }
+    ranges.push([inicio,fim]);
+    return ranges.map(([a,b])=> a===b
+      ? `${String(a).padStart(2,"0")}/${mesStr}`
+      : `${String(a).padStart(2,"0")}/${mesStr} a ${String(b).padStart(2,"0")}/${mesStr}`);
+  };
+  return {
+    ferias: formatarRanges(diasPorTipo.ferias),
+    atestado: formatarRanges(diasPorTipo.atestado),
+    feriado: formatarRanges(diasPorTipo.feriado),
+    folga: formatarRanges(diasPorTipo.folga),
+  };
+}
+
+function gerarPdfProdutividadeMes(){
+  if(!window.jspdf){ alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão e tente novamente."); return; }
+  if(!identificacaoRelatorioCompleta()){
+    alert("Antes de gerar o PDF, preencha seu nome completo, setor e núcleo em Configurações → Identificação para relatórios.");
+    page("config");
+    return;
+  }
+  const ano = mesEstatisticas.getFullYear(), mes = mesEstatisticas.getMonth();
+  const prefixoMes = `${ano}-${String(mes+1).padStart(2,"0")}`;
+  const ultimoDiaDoMes = new Date(ano, mes+1, 0).getDate();
+
+  let eventosMes = [];
+  db.forEach(p=>{
+    const log = Array.isArray(p.logHistorico) ? p.logHistorico : (
+      p.concluidoData ? [{data:p.concluidoData, status:p.status}] : []
+    );
+    log.forEach(ev=>{ if(ev.data && ev.data.startsWith(prefixoMes)) eventosMes.push({...ev, numero:p.numero}); });
+  });
+
+  const processosAnalisados = new Set(eventosMes.map(e=>e.numero)).size;
+  const concluidosMes = eventosMes.filter(e=>["Cálculo","Certidão"].includes(e.status));
+  const calc = concluidosMes.filter(e=>e.status==="Cálculo").length;
+  const cert = concluidosMes.filter(e=>e.status==="Certidão").length;
+  const totalConcluido = concluidosMes.length;
+  const diasUteis = contarDiasUteisNoMes(ano, mes, ultimoDiaDoMes);
+  const media = diasUteis>0 ? (totalConcluido/diasUteis) : 0;
+
+  const periodos = periodosExcecaoNoMes(ano, mes);
+  const id = carregarIdentificacaoRelatorio();
+  const nomeMes = mesEstatisticas.toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+  const nomeMesCap = nomeMes.charAt(0).toUpperCase()+nomeMes.slice(1);
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:"mm", format:"a4"});
+  const margem = 18;
+  let y = 22;
+
+  doc.setFont("helvetica","bold"); doc.setFontSize(18); doc.setTextColor(23,32,51);
+  doc.text("Relatório de Produtividade", margem, y);
+  y += 8;
+  doc.setFont("helvetica","normal"); doc.setFontSize(11); doc.setTextColor(71,85,105);
+  doc.text(nomeMesCap, margem, y);
+  y += 7;
+  doc.setFontSize(9.5);
+  doc.text(id.nome+"   •   "+id.setor+"   •   "+id.nucleo, margem, y);
+  y += 5;
+  const agora = new Date();
+  doc.setFontSize(8.5); doc.setTextColor(148,163,184);
+  doc.text("Gerado em "+agora.toLocaleDateString("pt-BR")+" às "+agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}), margem, y);
+  y += 6;
+  doc.setDrawColor(37,99,235); doc.setLineWidth(0.8);
+  doc.line(margem, y, 210-margem, y);
+  y += 12;
+
+  const linhasResumo = [
+    ["Dias úteis trabalhados", String(diasUteis)],
+    ["Processos analisados", String(processosAnalisados)],
+    ["Total concluído", String(totalConcluido)],
+    ["Cálculo", String(calc)],
+    ["Certidão", String(cert)],
+    ["Média por dia útil", media.toFixed(1)],
+  ];
+  doc.autoTable({
+    startY: y,
+    margin: {left: margem, right: margem},
+    body: linhasResumo,
+    styles: {fontSize:11, cellPadding:4},
+    columnStyles: {0:{textColor:[71,85,105], cellWidth:90}, 1:{fontStyle:"bold", textColor:[23,32,51], fontSize:13, halign:"right"}},
+    theme: "plain",
+    alternateRowStyles: {fillColor:[241,245,249]},
+  });
+
+  let yy = doc.lastAutoTable.finalY + 10;
+
+  const secoesExcecao = [
+    ["Férias", periodos.ferias],
+    ["Atestado", periodos.atestado],
+    ["Feriado", periodos.feriado],
+    ["Folga", periodos.folga],
+  ].filter(([,lista])=>lista.length);
+
+  if(secoesExcecao.length){
+    doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.setTextColor(23,32,51);
+    doc.text("Dias não trabalhados no mês", margem, yy);
+    yy += 6;
+    doc.setFont("helvetica","normal"); doc.setFontSize(10); doc.setTextColor(51,65,85);
+    secoesExcecao.forEach(([rotulo, lista])=>{
+      doc.text(rotulo+": "+lista.join(", "), margem, yy);
+      yy += 6;
+    });
+    yy += 4;
+  }
+
+  doc.setDrawColor(226,232,240); doc.setLineWidth(0.3);
+  doc.line(margem, yy, 210-margem, yy);
+  yy += 5;
+  doc.setFontSize(8); doc.setTextColor(148,163,184);
+  doc.text("Relatório gerado automaticamente pelo sistema de gestão de processos.", margem, yy);
+
+  doc.save("Relatorio_Produtividade_"+prefixoMes+".pdf");
+}
+
+function gerarPdfAnoAteMesAtual(){
+  if(!window.jspdf){ alert("Não foi possível carregar o gerador de PDF. Verifique sua conexão e tente novamente."); return; }
+  if(!identificacaoRelatorioCompleta()){
+    alert("Antes de gerar o PDF, preencha seu nome completo, setor e núcleo em Configurações → Identificação para relatórios.");
+    page("config");
+    return;
+  }
+  const canvasLinha = document.getElementById("chartLinhaAno");
+  if(!canvasLinha || !chartLinhaAnoInst){ alert("O gráfico ainda não terminou de carregar. Aguarde um instante e tente novamente."); return; }
+
+  const ano = mesEstatisticas.getFullYear();
+  const anoAtualReal = new Date().getFullYear(), mesAtualReal = new Date().getMonth();
+  const mesLimite = (ano===anoAtualReal) ? mesAtualReal : 11; // ano já fechado: mostra até dezembro
+
+  const nomesMes = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  let linhasMes = [], totalCalc=0, totalCert=0, periodosFeriasAno=[];
+  for(let m=0; m<=mesLimite; m++){
+    const prefixoM = `${ano}-${String(m+1).padStart(2,"0")}`;
+    const calc = db.filter(p=>p.status==="Cálculo" && p.concluidoData && p.concluidoData.startsWith(prefixoM)).length;
+    const cert = db.filter(p=>p.status==="Certidão" && p.concluidoData && p.concluidoData.startsWith(prefixoM)).length;
+    const feriasDoMes = periodosExcecaoNoMes(ano, m).ferias;
+    if(feriasDoMes.length) periodosFeriasAno.push(...feriasDoMes);
+    totalCalc += calc; totalCert += cert;
+    linhasMes.push([nomesMes[m]+(feriasDoMes.length?" (com férias)":""), String(calc), String(cert), String(calc+cert)]);
+  }
+  const totalAno = totalCalc + totalCert;
+  const mediaMes = totalAno / (mesLimite+1);
+
+  const id = carregarIdentificacaoRelatorio();
+  const imgData = canvasLinha.toDataURL("image/png", 1.0);
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({unit:"mm", format:"a4"});
+  const margem = 18;
+  let y = 22;
+
+  doc.setFont("helvetica","bold"); doc.setFontSize(18); doc.setTextColor(23,32,51);
+  doc.text("Relatório Anual de Produtividade", margem, y);
+  y += 8;
+  doc.setFont("helvetica","normal"); doc.setFontSize(11); doc.setTextColor(71,85,105);
+  const rotuloPeriodo = (ano===anoAtualReal) ? `Ano de ${ano} — até ${nomesMes[mesLimite].toLowerCase()} (mês atual)` : `Ano de ${ano}`;
+  doc.text(rotuloPeriodo, margem, y);
+  y += 7;
+  doc.setFontSize(9.5);
+  doc.text(id.nome+"   •   "+id.setor+"   •   "+id.nucleo, margem, y);
+  y += 5;
+  const agora = new Date();
+  doc.setFontSize(8.5); doc.setTextColor(148,163,184);
+  doc.text("Gerado em "+agora.toLocaleDateString("pt-BR")+" às "+agora.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}), margem, y);
+  y += 6;
+  doc.setDrawColor(37,99,235); doc.setLineWidth(0.8);
+  doc.line(margem, y, 210-margem, y);
+  y += 10;
+
+  doc.autoTable({
+    startY: y,
+    margin: {left: margem, right: margem},
+    body: [
+      ["Total no ano","Cálculo","Certidão","Média por mês"],
+      [String(totalAno), String(totalCalc), String(totalCert), mediaMes.toFixed(1)],
+    ],
+    styles: {fontSize:9.5, cellPadding:4, halign:"center", textColor:[71,85,105]},
+    theme: "plain",
+    didParseCell: function(dados){
+      if(dados.row.index===1){ dados.cell.styles.fontStyle="bold"; dados.cell.styles.fontSize=14; dados.cell.styles.textColor=[23,32,51]; }
+    },
+  });
+  y = doc.lastAutoTable.finalY + 10;
+
+  doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.setTextColor(23,32,51);
+  doc.text("Evolução ao longo do ano", margem, y);
+  y += 6;
+  const imgW = 210 - margem*2;
+  const imgH = imgW * (canvasLinha.height/canvasLinha.width);
+  doc.addImage(imgData, "PNG", margem, y, imgW, imgH);
+  y += imgH + 10;
+
+  if(y > 230){ doc.addPage(); y = 20; }
+
+  doc.setFont("helvetica","bold"); doc.setFontSize(12); doc.setTextColor(23,32,51);
+  doc.text("Detalhamento por mês", margem, y);
+  y += 4;
+
+  const corpoTabela = linhasMes.concat([["TOTAL", String(totalCalc), String(totalCert), String(totalAno)]]);
+  doc.autoTable({
+    startY: y,
+    margin: {left: margem, right: margem},
+    head: [["Mês","Cálculo","Certidão","Total"]],
+    body: corpoTabela,
+    styles: {fontSize:9.5, cellPadding:3.5, textColor:[51,65,85]},
+    headStyles: {fillColor:[23,32,51], textColor:255, fontStyle:"bold"},
+    columnStyles: {1:{halign:"center"}, 2:{halign:"center"}, 3:{halign:"center"}},
+    alternateRowStyles: {fillColor:[241,245,249]},
+    didParseCell: function(dados){
+      if(dados.row.index===corpoTabela.length-1 && dados.cell.section==="body"){
+        dados.cell.styles.fillColor=[239,246,255];
+        dados.cell.styles.textColor=[37,99,235];
+        dados.cell.styles.fontStyle="bold";
+      }
+    },
+  });
+
+  let yy = doc.lastAutoTable.finalY + 8;
+  if(periodosFeriasAno.length){
+    doc.setFont("helvetica","bold"); doc.setFontSize(10); doc.setTextColor(109,40,217);
+    doc.text("Férias no ano: "+periodosFeriasAno.join(", "), margem, yy);
+    yy += 6;
+  }
+
+  doc.setDrawColor(226,232,240); doc.setLineWidth(0.3);
+  doc.line(margem, yy, 210-margem, yy);
+  yy += 5;
+  doc.setFontSize(8); doc.setTextColor(148,163,184);
+  doc.text("Relatório gerado automaticamente pelo sistema de gestão de processos.", margem, yy);
+
+  doc.save("Relatorio_Anual_"+ano+".pdf");
 }
 
 function atualizarEstatisticas(){
@@ -4896,7 +5365,7 @@ function selecionarLoteRemetente(remetente, loteId){
 }
 
 // ── Gráficos ──────────────────────────────────────────────
-let chartBarrasInst=null, chartPizzaInst=null;
+let chartBarrasInst=null, chartPizzaInst=null, chartLinhaAnoInst=null;
 
 function renderGraficos(){
   if(!window.Chart || !document.getElementById("chartBarras")) return;
@@ -4963,6 +5432,77 @@ function renderGraficos(){
         tooltip:{backgroundColor:tooltipBg,borderColor:tooltipBorder,borderWidth:1,titleColor:tooltipText,bodyColor:textColor,padding:10,cornerRadius:6}
       }
     }
+  });
+
+  // ── Histórico do ano — linha com o total concluído (Cálculo+Certidão)
+  // por mês, meses futuros do ano corrente ficam em branco (null), e o
+  // mês que teve algum dia de férias marcado ganha destaque roxo.
+  const anoAtualReal = new Date().getFullYear(), mesAtualReal = new Date().getMonth();
+  const ehAnoCorrente = ano === anoAtualReal;
+  const excecoesAno = carregarExcecoesDias();
+  const labelsAno = ["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
+  const valsAno = [], feriasAno = [];
+  for(let m=0; m<12; m++){
+    if(ehAnoCorrente && m>mesAtualReal){ valsAno.push(null); feriasAno.push(false); continue; }
+    const prefixoM = `${ano}-${String(m+1).padStart(2,"0")}`;
+    valsAno.push(db.filter(p=>["Cálculo","Certidão"].includes(p.status) && p.concluidoData && p.concluidoData.startsWith(prefixoM)).length);
+    feriasAno.push(Object.entries(excecoesAno).some(([k,v])=>k.startsWith(prefixoM+"-") && v==="ferias"));
+  }
+  const tituloAnoEl = document.getElementById("estLinhaAnoTitulo");
+  if(tituloAnoEl) tituloAnoEl.textContent = ano;
+
+  const corLinha = isDark ? "#60a5fa" : "#3b82f6";
+  const corFerias = "#8b5cf6";
+  const corPontos = valsAno.map((v,i)=> feriasAno[i] ? corFerias : corLinha);
+  const corRotulo = isDark ? "#cbd5e1" : "#334155";
+  const corRotuloFerias = isDark ? "#c4b5fd" : "#6d28d9";
+
+  const rotuloAnoPlugin = {
+    id: "rotuloAnoPlugin",
+    afterDatasetsDraw(chart){
+      const ctx = chart.ctx;
+      const meta = chart.getDatasetMeta(0);
+      meta.data.forEach((point,i)=>{
+        const v = valsAno[i];
+        if(v===null || v===undefined) return;
+        ctx.save();
+        ctx.font = "bold 11px Inter, sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillStyle = feriasAno[i] ? corRotuloFerias : corRotulo;
+        ctx.fillText(v, point.x, point.y-14);
+        if(feriasAno[i]){
+          ctx.font = "9.5px Inter, sans-serif";
+          ctx.fillStyle = corFerias;
+          ctx.fillText("férias", point.x, point.y-26);
+        }
+        ctx.restore();
+      });
+    }
+  };
+
+  if(chartLinhaAnoInst) chartLinhaAnoInst.destroy();
+  chartLinhaAnoInst = new Chart(document.getElementById("chartLinhaAno"), {
+    type:"line",
+    data:{labels:labelsAno, datasets:[{
+      data:valsAno, borderColor:corLinha, backgroundColor:isDark?"rgba(96,165,250,.1)":"rgba(59,130,246,.08)",
+      borderWidth:2, pointRadius:5, pointBackgroundColor:corPontos, pointBorderColor:cardBg, pointBorderWidth:2,
+      fill:true, tension:.3, spanGaps:false,
+    }]},
+    options:{
+      responsive:true, maintainAspectRatio:false, layout:{padding:{top:26}},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:tooltipBg, borderColor:tooltipBorder, borderWidth:1, titleColor:tooltipText, bodyColor:textColor, padding:10, cornerRadius:6,
+          callbacks:{afterLabel:(ctx)=> feriasAno[ctx.dataIndex] ? "Mês com férias" : ""}
+        }
+      },
+      scales:{
+        x:{ticks:{color:textColor,font:{size:11}}, grid:{display:false}, border:{display:false}},
+        y:{beginAtZero:true, ticks:{color:textColor,stepSize:1,font:{size:11}}, grid:{color:gridColor,drawTicks:false}, border:{display:false}}
+      }
+    },
+    plugins:[rotuloAnoPlugin],
   });
 }
 
@@ -5059,18 +5599,24 @@ async function enviarResetSenha(){
 function sair(){
   if(window.fbLogout) window.fbLogout();
   db=[];
+  // Anotações e dias úteis do mês são preferências locais do navegador —
+  // continuam salvas mesmo depois de sair da conta.
+  const preservarNoLogout = new Set([ANOT_KEY, EXCECOES_DIAS_KEY]);
   // Limpar todos os dados locais do usuário
   const keys = ["prod_v5","prod_v5_nome_carimbo","prod_v5_eventos_custom",
     "prod_v5_vintage_ativo","prod_v5_tinta_atual","prod_v5_tinta_ultima_pressao",
     "prod_v5_lastsave","prod_v5_lastexport","prod_theme",
-    "ANOT_KEY","prod_v5_mapa_desgaste","prod_v5_eventos_cores","prod_v5_eventos_ordem",
+    "prod_v5_mapa_desgaste","prod_v5_eventos_cores","prod_v5_eventos_ordem",
     "_lastEmail"];
-  keys.forEach(k=>localStorage.removeItem(k));
-  // Limpar também qualquer chave que comece com prod_v5_ ou excecoes_dias_
-  Object.keys(localStorage).filter(k=>k.startsWith("prod_v5_")||k.startsWith("excecoes_dias_")).forEach(k=>localStorage.removeItem(k));
+  keys.forEach(k=>{ if(!preservarNoLogout.has(k)) localStorage.removeItem(k); });
+  // Limpar também qualquer chave que comece com prod_v5_ ou excecoes_dias_,
+  // exceto as preservadas acima.
+  Object.keys(localStorage).filter(k=>(k.startsWith("prod_v5_")||k.startsWith("excecoes_dias_")) && !preservarNoLogout.has(k)).forEach(k=>localStorage.removeItem(k));
 }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 
 
 <!-- Tour -->
