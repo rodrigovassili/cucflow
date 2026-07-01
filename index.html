@@ -274,7 +274,7 @@ body.dark .cal-legenda-clicavel[data-tipo="recesso"].ativo{color:#a5b4fc}
 .cal-periodo-box input[type="date"]{border:1px solid var(--line);border-radius:8px;padding:5px 8px;font-size:12.5px;background:var(--card);color:var(--text);width:auto}
 .cal-periodo-hint{font-size:11px;color:var(--muted);margin-bottom:8px;min-height:14px}
 
-/* ── Toggle switch genérico (usado no Modo Vintage) ── */
+/* ── Toggle switch genérico (usado no marcador de período do calendário) ── */
 .toggle-switch{
   width:40px;height:22px;border-radius:999px;border:none;
   background:#e2e8f0;cursor:pointer;position:relative;flex-shrink:0;
@@ -286,66 +286,6 @@ body.dark .cal-legenda-clicavel[data-tipo="recesso"].ativo{color:#a5b4fc}
   background:#fff;transition:transform .25s ease;box-shadow:0 1px 3px rgba(0,0,0,.2);
 }
 .toggle-switch.ativo .toggle-bolinha{transform:translateX(18px)}
-
-/* ── Modo Escritório Vintage — easter egg ── */
-body.vintage-mode{
-  background:#f4efe2 !important;
-  transition:background .5s ease;
-}
-body.vintage-mode,
-body.vintage-mode *{
-  font-family:'Courier New', Courier, monospace !important;
-}
-body.vintage-mode .sidebar{background:#ece4d3 !important;border-color:#94a3b8 !important}
-body.vintage-mode .card,
-body.vintage-mode .stat,
-body.vintage-mode .tablebox,
-body.vintage-mode .hist,
-
-body.vintage-mode th,
-body.vintage-mode td{
-  border-color:#94a3b8 !important;border-style:dashed !important;
-}
-body.vintage-mode th{background:#ece4d3 !important;color:#57534e !important}
-/* Badges de status mantêm a cor original de cada status — só a FORMA muda
-   pra parecer um carimbo de máquina de escrever (cantos quase retos, borda
-   tracejada) em vez da pílula arredondada do visual moderno. */
-body.vintage-mode .badge,
-body.vintage-mode .proc-hist,
-body.vintage-mode select.event-select{
-  border-radius:2px !important;
-  border:1px dashed currentColor !important;
-  box-shadow:none !important;
-}
-body.vintage-mode .primary,
-body.vintage-mode .secondary{
-  background:#3f3a33 !important;color:#f4efe2 !important;
-  border:1px dashed #78716c !important;border-radius:2px !important;
-  box-shadow:none !important;
-}
-body.vintage-mode .logo-main .flow{color:#3f3a33 !important}
-body.vintage-mode .nav button.active{background:#ece4d3 !important}
-
-.vintage-notice{
-  position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(20px);
-  background:#3f3a33;color:#f4efe2;font-size:11.5px;
-  padding:9px 10px 9px 18px;border-radius:4px;
-  font-family:'Courier New', Courier, monospace !important;
-  white-space:nowrap;
-  display:flex;align-items:center;gap:12px;
-  opacity:0;pointer-events:none;
-  transition:opacity .4s ease, transform .4s ease;
-  z-index:9999;letter-spacing:.01em;
-}
-body.vintage-mode .vintage-notice{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
-#btnFecharVintage{
-  background:transparent;border:1px dashed #6b6356;color:#f4efe2;
-  width:22px;height:22px;border-radius:3px;cursor:pointer;
-  font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:background .15s ease;
-  font-family:'Courier New', Courier, monospace !important;
-}
-#btnFecharVintage:hover{background:rgba(244,239,226,.12)}
 
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}
@@ -494,6 +434,7 @@ body.dark .btn-flat-ic:hover{color:#60a5fa;background:rgba(59,130,246,.15)}
 body.dark .btn-flat-ic.del:hover{color:#f87171;background:rgba(239,68,68,.12)}
 .days{font-weight:850}
 .hot{color:#b91c1c;background:#fee2e2;padding:4px 8px;border-radius:6px}
+body.dark .hot{color:#fca5a5;background:rgba(239,68,68,.14)}
 .empty{padding:28px;text-align:center;color:var(--muted)}
 .hidden{display:none!important}
 
@@ -791,6 +732,8 @@ body.dark .anot-tab.anot-tab-ativa{background:rgba(255,255,255,.06)!important}
 .ev-dd-config-btn{position:absolute;right:4px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);padding:5px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:color .15s,background .15s}
 .ev-dd-config-btn:hover{color:var(--text);background:#f8fafc}
 body.dark .ev-dd-config-btn:hover{background:#2a2e37}
+.ev-dd-pin{flex-shrink:0;color:#2563eb}
+body.dark .ev-dd-pin{color:#60a5fa}
 #telaLogin{background:#f8fafc !important;color-scheme:light !important}
 #telaLogin>div{background:#fff !important;color:#1e293b !important}
 #telaLogin input{background:#fff !important;color:#1e293b !important;border-color:#e2e8f0 !important;-webkit-text-fill-color:#1e293b !important}
@@ -1530,7 +1473,7 @@ onAuthStateChanged(auth, async (user)=>{
   </div>
   <div class="tablebox">
     <table>
-      <thead class="thead-centro"><tr><th>#</th><th>Data</th><th>Enviado por</th><th>Processo</th><th>Status</th><th>Dias sem resolver</th><th>Ações</th></tr></thead>
+      <thead class="thead-centro"><tr><th>#</th><th>Data</th><th>Enviado por</th><th>Processo</th><th>Status</th><th>Assunto</th><th>Dias sem resolver</th><th>Ações</th></tr></thead>
       <tbody id="tbody"></tbody>
     </table>
     <div id="empty" class="empty hidden">Nenhum processo encontrado.</div>
@@ -1788,7 +1731,7 @@ onAuthStateChanged(auth, async (user)=>{
         <span style="font-size:13px;font-weight:600;color:var(--text)">Dias úteis do mês</span>
         <button onclick="fecharModalCalendario()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center">×</button>
       </div>
-      <div class="small" style="margin-bottom:12px">Selecione o motivo abaixo e clique nos dias para marcar. Fins de semana e feriados nacionais já ficam de fora automaticamente.</div>
+      <div class="small" style="margin-bottom:12px">Clique em uma das legendas abaixo e depois selecione os dias no calendário para marcá-los. Fins de semana e feriados nacionais já ficam de fora automaticamente.</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px;font-size:11px;color:var(--muted)">
         <span class="cal-legenda-item"><span class="cal-legenda-dot cal-dia-util"></span> útil</span>
         <button type="button" class="cal-legenda-clicavel" data-tipo="atestado" onclick="selecionarModoMarcacao('atestado')"><span class="cal-legenda-dot cal-dia-atestado"></span> atestado</button>
@@ -1891,26 +1834,8 @@ onAuthStateChanged(auth, async (user)=>{
     <input id="cfgNucleo" class="cfg-input-line" placeholder="Ex: Núcleo 3" oninput="salvarIdentificacaoRelatorio()">
     <div class="cfg-hint">Aparece no cabeçalho do PDF de produtividade.</div>
   </div>
-
-  <div class="card" id="cardModoVintage">
-    <div class="card-title"><span class="card-title-left">Customização e interface</span></div>
-    <div class="cfg-toggle-row">
-      <div>
-        <div class="cfg-toggle-title">Modo Escritório Vintage</div>
-        <div class="cfg-hint">Mantém o layout clássico de máquina de escrever (fundo marfim e fontes Courier) ativo permanentemente.</div>
-      </div>
-      <button type="button" class="toggle-switch" id="toggleVintage" onclick="alternarVintageBotao()">
-        <span class="toggle-bolinha"></span>
-      </button>
-    </div>
-  </div>
 </section>
 </main>
-</div>
-
-<div class="vintage-notice">
-  <span>📝 Modo Vintage Ativo</span>
-  <button type="button" id="btnFecharVintage" onclick="setVintageMode(false)" title="Sair do modo vintage">✕</button>
 </div>
 
 <!-- Modal excluir processo -->
@@ -2604,10 +2529,10 @@ function renderAssuntoPills(){
   if(!el) return;
   const freq = {};
   db.forEach(p=>{ const s=(p.assunto||"").trim(); if(s) freq[s]=(freq[s]||0)+1; });
-  const top3 = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k])=>k);
-  if(!top3.length){ el.style.display='none'; return; }
+  const top5 = Object.entries(freq).sort((a,b)=>b[1]-a[1]).slice(0,5).map(([k])=>k);
+  if(!top5.length){ el.style.display='none'; return; }
   el.style.display='flex';
-  el.innerHTML = top3.map(s=>`<button type="button" class="assunto-pill" data-val="${esc(s)}" onclick="usarAssunto(this.dataset.val)">${esc(s)}</button>`).join('');
+  el.innerHTML = top5.map(s=>`<button type="button" class="assunto-pill" data-val="${esc(s)}" onclick="usarAssunto(this.dataset.val)">${esc(s)}</button>`).join('');
 }
 function usarAssunto(s){
   const input = document.getElementById('aAssunto');
@@ -2863,6 +2788,7 @@ function render(){
     <option ${p.status==='Cálculo'?'selected':''}>Cálculo</option>
     <option ${p.status==='Certidão'?'selected':''}>Certidão</option>
     </select></td>
+    <td>${esc(p.assunto)||"-"}</td>
     <td><span class="days ${ds!=="-"&&ds>=7?"hot":""}">${ds}</span>${da!==null?`<br><span class="small" style="color:#1d4ed8;font-weight:600">${da}d aguardando</span>`:""}</td>
     <td><div class="actions-cell">
       <button class="btn-flat-ic" title="Analisar" onclick="event.stopPropagation();openAnalise(${idx})">
@@ -3395,8 +3321,10 @@ function evDDPopulate(id){
     </button>
   </div>`;
   if(top3.length){
+    const saoFixados = carregarFixados().length > 0;
+    const pinSvg = '<svg class="ev-dd-pin" width="11" height="11" viewBox="0 0 24 24" fill="currentColor" fill-opacity="0.15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg>';
     top3.forEach(e=>{
-      hTopo+=`<div class="ev-dd-opt" onclick="evDDPick('${id}','${esc(e)}')"><span class="ev-dd-pill ${classeEvento(e)}">${iconeEventoMarco(e)}${esc(e)}</span></div>`;
+      hTopo+=`<div class="ev-dd-opt" onclick="evDDPick('${id}','${esc(e)}')" style="gap:6px">${saoFixados?pinSvg:''}<span class="ev-dd-pill ${classeEvento(e)}">${iconeEventoMarco(e)}${esc(e)}</span></div>`;
     });
   }
   let hScroll='';
@@ -3680,10 +3608,24 @@ function alterarStatusConclusao(){
   const novoStatus = aStatus.value;
   const carimbos = carimbosDoProcesso(p);
 
-  // substitui apenas o status do último carimbo, preservando tudo mais
   if(carimbos.length > 0){
+    // substitui apenas o status do último carimbo, preservando tudo mais
     carimbos[carimbos.length - 1].status = novoStatus;
     p.carimbos = carimbos;
+  } else {
+    // processo concluído sem carimbo posicionado (ex: status alterado
+    // direto pela lista de Meus Processos) — sem isso, o "Sim, alterar"
+    // não tinha carimbo nenhum pra atualizar e o modo leitura abria vazio.
+    // Cria um carimbo auto-posicionado com o novo status.
+    p.carimbos = [{
+      x: 65, y: 4,
+      seed: Math.floor(Math.random()*100000),
+      rotacao: -3, forca: 0.8, desgaste: 0.05,
+      status: novoStatus,
+      data: p.concluidoData || today(),
+      hora: p.concluidoHora || new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit",second:"2-digit"}),
+      por: p.concluidoPor || carregarNomeCarimbo()
+    }];
   }
 
   // atualiza status da última entrada do log, preservando data e hora
@@ -3698,6 +3640,8 @@ function alterarStatusConclusao(){
   editandoConcluido = false;
   toggleModoEdicao(true, p);
   btnEditar.style.display = "inline-block";
+  // sobe até o topo, onde o carimbo fica, pra alteração ficar visível
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 function confirmarConclusao(){
   houveEdicaoReal = true;
@@ -4396,7 +4340,7 @@ function renderHistorico(){
 </button>${dupBadgeHtml(db[ev.idx], ev.idx)}</div></td><td>
 <span class="badge ${statusClass(ev.status)}" title="${divergente?'Status atual do processo: '+esc(ev.statusAtual):'Lançamento registrado neste dia — não muda retroativamente'}">${esc(ev.status)}</span>
 
-</td><td>${esc(ev.assunto)||"-"}</td><td style="width:40px;text-align:center;padding:8px 16px"><button class="hist-edit-btn" onclick="event.stopPropagation();openAnalise(${ev.idx})" title="Editar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></button></td></tr>`;
+</td><td>${esc(ev.assunto)||"-"}</td><td style="width:40px;text-align:center;padding:8px 16px"><button class="hist-edit-btn" onclick="event.stopPropagation();openAnalise(${ev.idx})" title="Analisar"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button></td></tr>`;
     }).join("")
   }</tbody></table></div>`;
   aplicarMarcaCopiado();
@@ -4618,7 +4562,6 @@ function limpar(){
 }
 
 function toggleTheme(){
-  if(isVintageMode) return; // modo vintage não tem dark
   document.body.classList.toggle("dark");
   localStorage.setItem("prod_theme", document.body.classList.contains("dark")?"dark":"light");
   atualizarCoruja();
@@ -4675,45 +4618,11 @@ window.addEventListener("mousemove", (e)=>{
   corujaMoverOlhos(e.clientX, e.clientY);
 });
 
-const VINTAGE_DESCOBERTO_KEY = "prod_v5_vintage_descoberto";
-let isVintageMode = false;
-
-function vintageJaDescoberto(){
-  return localStorage.getItem(VINTAGE_DESCOBERTO_KEY) === "1";
-}
-function vintageMarcarDescoberto(){
-  localStorage.setItem(VINTAGE_DESCOBERTO_KEY, "1");
-}
-function setVintageMode(ativo){
-  isVintageMode = ativo;
-  document.body.classList.toggle("vintage-mode", ativo);
-  if(ativo){
-    document.body.classList.remove("dark");
-    localStorage.setItem("prod_theme", "light");
-  }
-  localStorage.setItem("prod_v5_vintage_ativo", ativo ? "1" : "0");
-  const toggle = document.getElementById("toggleVintage");
-  if(toggle) toggle.classList.toggle("ativo", ativo);
-}
-function alternarVintageBotao(){
-  setVintageMode(!isVintageMode);
-}
-
-// gatilho por seleção de texto: só no título de "Meus Processos"
-document.getElementById("tituloLista")?.addEventListener("mouseup", ()=>{
-  const selecao = window.getSelection();
-  const texto = (selecao.toString()||"").trim();
-  if(texto === "Processos"){
-    vintageMarcarDescoberto();
-    setVintageMode(true);
-  }
-});
-
-// revela o toggle nas Configurações imediatamente se já foi descoberto
-// em uma sessão anterior (sem precisar redescobrir o easter egg)
-if(vintageJaDescoberto()){
-  setVintageMode(localStorage.getItem("prod_v5_vintage_ativo")==="1");
-}
+// Modo Vintage foi removido do sistema — limpa qualquer resíduo salvo por
+// versões anteriores (classe no body nunca mais é aplicada; aqui só higiene
+// das chaves antigas do navegador).
+localStorage.removeItem("prod_v5_vintage_descoberto");
+localStorage.removeItem("prod_v5_vintage_ativo");
 
 let mesEstatisticas=new Date();
 
@@ -6207,6 +6116,27 @@ const EV_CORES_PADRAO = [
   {bg:"#ffedd5",tx:"#9a3412"},{bg:"#f1f5f9",tx:"#475569"},{bg:"#ccfbf1",tx:"#115e59"},
   {bg:"#e0f2fe",tx:"#075985"},{bg:"#f0fdf4",tx:"#14532d"},{bg:"#fdf4ff",tx:"#6b21a8"},
 ];
+// Versões equivalentes das 12 cores para o modo escuro (mesma posição =
+// mesma cor conceitual): fundos translúcidos sobre o card escuro + texto
+// claro, seguindo o padrão das demais pílulas do sistema no dark.
+const EV_CORES_PADRAO_DARK = [
+  {bg:"rgba(16,185,129,.15)",tx:"#34d399"},{bg:"rgba(59,130,246,.15)",tx:"#60a5fa"},{bg:"rgba(139,92,246,.15)",tx:"#a78bfa"},
+  {bg:"rgba(234,179,8,.15)",tx:"#fbbf24"},{bg:"rgba(239,68,68,.15)",tx:"#f87171"},{bg:"rgba(236,72,153,.15)",tx:"#f9a8d4"},
+  {bg:"rgba(249,115,22,.15)",tx:"#fb923c"},{bg:"rgba(148,163,184,.15)",tx:"#94a3b8"},{bg:"rgba(20,184,166,.15)",tx:"#2dd4bf"},
+  {bg:"rgba(14,165,233,.15)",tx:"#38bdf8"},{bg:"rgba(34,197,94,.12)",tx:"#4ade80"},{bg:"rgba(168,85,247,.15)",tx:"#c084fc"},
+];
+// Resolve a cor salva de um evento para o tema ativo. Cores novas guardam
+// as duas versões (light + dark); cores antigas (só light) são migradas na
+// hora: acha o índice pela cor de fundo light e usa a equivalente dark.
+function resolverCorEvento(cor){
+  if(!cor) return null;
+  const isDark = document.body.classList.contains("dark");
+  if(!isDark) return {bg:cor.bg, tx:cor.tx};
+  if(cor.bgDark && cor.txDark) return {bg:cor.bgDark, tx:cor.txDark};
+  const idx = EV_CORES_PADRAO.findIndex(c=>c.bg===cor.bg && c.tx===cor.tx);
+  if(idx>=0) return {bg:EV_CORES_PADRAO_DARK[idx].bg, tx:EV_CORES_PADRAO_DARK[idx].tx};
+  return {bg:cor.bg, tx:cor.tx};
+}
 let evCorPickerIdx = null;
 let evPinAvisoTimer = null;
 
@@ -6272,7 +6202,7 @@ function renderEvPopup(destaque){
   let hFixados = '';
   let hResto = '';
   ativos.forEach((ev,i)=>{
-    const cor = cores[ev];
+    const cor = resolverCorEvento(cores[ev]);
     const cls = cor ? '' : classeEvento(ev);
     const style = cor ? `style="background:${cor.bg};color:${cor.tx};border:1px solid ${cor.tx}40"` : '';
     const corBtnStyle = cor ? `background:${cor.bg};border-color:${cor.tx}` : corBtnPadraoStyle(cls);
@@ -6357,7 +6287,8 @@ function evAbrirCor(idx, btn){
   }
   evCorPickerIdx = idx;
   const picker = document.getElementById("evCorPicker");
-  picker.innerHTML = EV_CORES_PADRAO.map((c,i)=>
+  const paletaAtiva = document.body.classList.contains("dark") ? EV_CORES_PADRAO_DARK : EV_CORES_PADRAO;
+  picker.innerHTML = paletaAtiva.map((c,i)=>
     `<div class="ev-cor-op" style="background:${c.bg};border-color:${c.tx}" onclick="evEscolherCor(${i})"></div>`
   ).join('');
   const r = btn.getBoundingClientRect();
@@ -6398,7 +6329,10 @@ function evEscolherCor(i){
   const ativos = evAtivos();
   const nome = ativos[evCorPickerIdx];
   const cores = carregarCoresEventos();
-  cores[nome] = EV_CORES_PADRAO[i];
+  cores[nome] = {
+    bg: EV_CORES_PADRAO[i].bg, tx: EV_CORES_PADRAO[i].tx,
+    bgDark: EV_CORES_PADRAO_DARK[i].bg, txDark: EV_CORES_PADRAO_DARK[i].tx,
+  };
   salvarCoresEventos(cores);
   document.getElementById("evCorPicker").classList.remove("open");
   evCorPickerIdx = null;
